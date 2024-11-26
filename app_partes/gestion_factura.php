@@ -16,7 +16,11 @@ include '../modelo_partes/m_facturas.php';
                 </div>
                 <div class="card-body">
                     <h3>Añadir factura</h3>
-                    <form action="submit" method="post">
+                    <form action="" method="post">
+
+                        <label for="factura_id_input" class="form-label">ID</label>
+                        <input type="text" name="factura_id_input" class="form-control">
+
 
                         <label for="numero_factura_input" class="form-label">Numero factura</label>
                         <input type="text" name="numero_factura_input" class="form-control">
@@ -27,7 +31,7 @@ include '../modelo_partes/m_facturas.php';
                         <label for="monto_input" class="form-label">Monto</label>
                         <input type="text" name="monto_input" class="form-control">
 
-                        <button>Agregar</button>
+                        <button type="submit">Agregar</button>
 
                     </form>
                 </div>
@@ -40,18 +44,28 @@ include '../modelo_partes/m_facturas.php';
         <table class="table">
             <thead>
                 <tr>
-                    <td>Nº</td>
+                    <td>ID</td>
+                    <td>Nº Factura</td>
                     <td>Empresa</td>
                     <td>Monto</td>
                 </tr>
+
             </thead>
 
             <tbody>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
+
+
+                <?php foreach ($lista_factura as $factura) { ?>
+
+
+                    <tr>
+                        <th> <?php echo $factura["factura_id"]; ?></th>
+                        <th> <?php echo $factura["numero"]; ?></th>
+                        <th> <?php echo $factura["empresa"]; ?></th>
+                        <th> <?php echo $factura["monto"]; ?></th>
+                    </tr>
+
+                <?php } ?>
             </tbody>
         </table>
 
