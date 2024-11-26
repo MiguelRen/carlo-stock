@@ -18,8 +18,7 @@ include '../modelo_partes/m_facturas.php';
                     <h3>Añadir factura</h3>
                     <form action="" method="post">
 
-                        <label for="factura_id_input" class="form-label">ID</label>
-                        <input type="text" name="factura_id_input" class="form-control">
+                        
 
 
                         <label for="numero_factura_input" class="form-label">Numero factura</label>
@@ -31,7 +30,9 @@ include '../modelo_partes/m_facturas.php';
                         <label for="monto_input" class="form-label">Monto</label>
                         <input type="text" name="monto_input" class="form-control">
 
-                        <button type="submit">Agregar</button>
+                        <div class="btn-group">
+                            <button type="submit" name="accion" value="agregar" action>Agregar</button>
+                        </div>
 
                     </form>
                 </div>
