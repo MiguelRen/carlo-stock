@@ -16,7 +16,7 @@
 
 
                 <form 
-                    action="app_partes"
+                    action="vistas"
                     method="post"
                     >
 
