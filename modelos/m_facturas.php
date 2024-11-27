@@ -26,9 +26,15 @@ if(isset($_POST["numero_factura_input"]) && isset($_POST["empresa_input"]) && is
     
 
     $_POST["numero_factura_input"] = ""; //limpiar todo lo que e staba en el $_POST
+}else{
+
+    $message = "<script> 
+                    alert('faltan campos por llenar');
+                </script>";
+    echo $message;
 }
 
-$consulta = $coneccionBD->prepare("SELECT * FROM factura");
-$consulta->execute();
-$lista_factura = $consulta->fetchAll();
 
+ print_r($_POST);
+header("location: ../vistas/app_partes/gestion_factura.php");
+die();

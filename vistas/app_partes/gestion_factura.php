@@ -38,6 +38,22 @@ include '../estructura_principal/cabecera.php';
     </div>
 
 
+<?php
+
+include_once '../../coneccion/db.php';
+
+$coneccionBD = BD::crear_instancia();
+
+
+
+    $consulta = $coneccionBD->prepare("SELECT * FROM factura");
+$consulta->execute();
+$lista_factura = $consulta->fetchAll();
+
+?>
+
+
+
     <div class="col-8 border">
         <table class="table">
             <thead>
@@ -61,8 +77,8 @@ include '../estructura_principal/cabecera.php';
                         <th> <?php echo $factura["monto"]; ?></th>
                         <th>
                             <form action="" method="post">
-                                <input type="text" value="ijkg">
-                                <button type="submit" class="btn btn-primary">Editar</button>
+                                <input type="text" value="<?php echo $factura["factura_id"]; ?> " hidden>
+                                <button type="submit" value="seleccionar" class="btn btn-primary">Editar</button>
                             </form>
                         </th>
                         <th><button class="btn btn-danger">Eliminar</button></th>
