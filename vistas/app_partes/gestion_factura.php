@@ -1,6 +1,6 @@
 <?php
 include '../estructura_principal/cabecera.php';
-// include '../../modelos/m_facturas.php';
+include '../../modelos/m_facturas.php';
 ?>
 
 <div class="row d-flex">
@@ -16,19 +16,41 @@ include '../estructura_principal/cabecera.php';
                 </div>
                 <div class="card-body">
                     <h3>Añadir factura</h3>
-                    <form action="../../modelos/m_facturas.php" method="post">
+                    <form action="" method="post">
+
+
+                        <input type="text" name="factura_id" value="<?php echo $factura_id_seleccion ?>" hidden>
+
+
 
                         <label for="numero_factura_input" class="form-label">Numero factura</label>
-                        <input type="text" name="numero_factura_input" class="form-control" required>
+                        <input 
+                            type="text" 
+                            name="numero_factura_input" 
+                            class="form-control" 
+                            value="<?php echo $numero_seleccion ?>"
+                            required>
 
                         <label for="empresa_input" class="form-label">Empresa</label>
-                        <input type="text" name="empresa_input" class="form-control" required>
+                        <input 
+                            type="text" 
+                            name="empresa_input" 
+                            class="form-control" 
+                            value="<?php echo $empresa_seleccion ?>"
+                            required>
 
                         <label for="monto_input" class="form-label">Monto</label>
-                        <input type="text" name="monto_input" class="form-control" required>
+                        <input 
+                            type="text" 
+                            name="monto_input" 
+                            class="form-control" 
+                            value="<?php echo $monto_seleccion ?>"
+                            required>
 
-                        <div class="btn-group">
-                            <button type="submit" name="accion" value="agregar" action>Agregar</button>
+                        <div class="  btn-group ">
+                            <button type="submit" name="accion" value="Agregar"class="btn btn-primary" action>Agregar</button>
+                            <button type="submit" name="accion" value="Editar" class="btn btn-primary">Editar</button>
+                            <button type="submit" name="accion" value="Eliminar" class="btn btn-primary">Eliminar</button>
                         </div>
 
                     </form>
@@ -38,19 +60,21 @@ include '../estructura_principal/cabecera.php';
     </div>
 
 
-<?php
+    <?php
 
-include_once '../../coneccion/db.php';
+    include_once '../../coneccion/db.php';
 
-$coneccionBD = BD::crear_instancia();
+    $coneccionBD = BD::crear_instancia();
 
-
-
+                                        
+    
     $consulta = $coneccionBD->prepare("SELECT * FROM factura");
-$consulta->execute();
-$lista_factura = $consulta->fetchAll();
+    $consulta->execute();
+    $lista_factura = $consulta->fetchAll();
 
-?>
+
+
+    ?>
 
 
 
@@ -77,8 +101,11 @@ $lista_factura = $consulta->fetchAll();
                         <th> <?php echo $factura["monto"]; ?></th>
                         <th>
                             <form action="" method="post">
-                                <input type="text" value="<?php echo $factura["factura_id"]; ?> " hidden>
-                                <button type="submit" value="seleccionar" class="btn btn-primary">Editar</button>
+                                <input type="text" name="id_seleccion" value="<?php echo $factura["factura_id"]; ?> "
+                                    hidden>
+                                
+                                <button type="submit" name="accion" value="Seleccionar"
+                                    class="btn btn-primary">Editar</button>
                             </form>
                         </th>
                         <th><button class="btn btn-danger">Eliminar</button></th>
