@@ -28,7 +28,7 @@ include '../../modelos/m_facturas.php';
                             type="text" 
                             name="numero_factura_input" 
                             class="form-control" 
-                            value="<?php echo $numero_seleccion ?>"
+                            value="<?php echo $numero_seleccion ?? '' ; ?>"
                             required>
 
                         <label for="empresa_input" class="form-label">Empresa</label>
@@ -36,7 +36,7 @@ include '../../modelos/m_facturas.php';
                             type="text" 
                             name="empresa_input" 
                             class="form-control" 
-                            value="<?php echo $empresa_seleccion ?>"
+                            value="<?php echo $empresa_seleccion ?? '' ; ?>"
                             required>
 
                         <label for="monto_input" class="form-label">Monto</label>
@@ -44,11 +44,11 @@ include '../../modelos/m_facturas.php';
                             type="text" 
                             name="monto_input" 
                             class="form-control" 
-                            value="<?php echo $monto_seleccion ?>"
+                            value="<?php echo $monto_seleccion ?? '' ;?>"
                             required>
 
                         <div class="  btn-group ">
-                            <button type="submit" name="accion" value="Agregar"class="btn btn-primary" action>Agregar</button>
+                            <button type="submit" name="accion" value="Agregar"class="btn btn-primary" >Agregar</button>
                             <button type="submit" name="accion" value="Editar" class="btn btn-primary">Editar</button>
                             <button type="submit" name="accion" value="Eliminar" class="btn btn-primary">Eliminar</button>
                         </div>
@@ -106,9 +106,10 @@ include '../../modelos/m_facturas.php';
                                 
                                 <button type="submit" name="accion" value="Seleccionar"
                                     class="btn btn-primary">Editar</button>
+                                <button class="btn btn-danger" name="accion" value="Eliminar">Eliminar</button>
                             </form>
                         </th>
-                        <th><button class="btn btn-danger">Eliminar</button></th>
+
                     </tr>
 
                 <?php } ?>

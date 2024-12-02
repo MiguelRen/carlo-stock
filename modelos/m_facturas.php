@@ -13,7 +13,7 @@ if (isset($_POST) ) {
 
     $accion = $_POST['accion'] ?? '';
 
-    print_r($_POST);
+   
     switch ($accion) {
         case 'Agregar':
 
@@ -42,7 +42,7 @@ if (isset($_POST) ) {
             $consulta->execute();
             $lista_seleccion = $consulta->fetch(PDO::FETCH_ASSOC);
             
-            print_r($lista_seleccion);
+
             $factura_id_seleccion = $lista_seleccion['factura_id'] ?? '';
             $numero_seleccion = $lista_seleccion['numero'] ?? '';
             $empresa_seleccion = $lista_seleccion['empresa'] ?? '' ;
@@ -59,19 +59,19 @@ if (isset($_POST) ) {
             
             $sql = 'UPDATE factura SET numero = ? , empresa = ? , monto= ? WHERE factura_id = ? ';  
             $consulta = $coneccionBD->prepare($sql);
-            $consulta->bindParam( 1 , $numer_factura);
+            $consulta->bindParam( 1 , $numero_factura);
             $consulta->bindParam( 2 , $empresa);
             $consulta->bindParam( 3 , $monto);
             $consulta->bindParam( 4 , $factura_id);
-            print_r($sql);
+           
             $consulta->execute();
 
 
             break;
         case 'Eliminar':
-            
-            $factura_id = $_POST['numero_factura_id'] ?? '';
 
+            $factura_id = $_POST['id_seleccion'] ?? '';
+            print_r($factura_id ?? 'hjnmdfgvfj');
             $sql = 'DELETE FROM factura WHERE factura_id = ?';
             $consulta = $coneccionBD->prepare($sql);
             $consulta->bindParam(1,$factura_id);
