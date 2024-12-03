@@ -10,7 +10,7 @@
 
     <body>
 
-        <div class="container " name="container-principal">  
+        <div class="container-fluid" name="container-principal">  
             <div class="row align-items-end" name="row-principal">
                 <div class="col-4  mx-auto " name="column-principal">
 
