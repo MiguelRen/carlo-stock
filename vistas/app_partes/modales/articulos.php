@@ -1,5 +1,5 @@
 <div class="modal" id="modal-test">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">
@@ -8,8 +8,57 @@
             </div>
 
             <div class="modal-body">
-                <label for="modal_input"> Descripcion</label>
-                <input type="text" name="modal_input">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr scope="row">
+                            <th scope="col" class="small">Descripcion</th>
+                      
+                            <th scope="col" class="small">cantidad</th>
+                            
+                            <th scope="col" class="small">Unidad</th>
+                            <th scope="col" class="small">IVA</th>
+                            
+                            <th scope="col" class="small">Precio Unitario</th>
+                   
+                            <th scope="col" class="small">Neto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td scope="">
+                                <input class="small" type="text">
+                            </td>
+                            
+                            <td scope="">
+                                <input class="small" type="text">
+                            </td>
+                            
+                            <td scope=" ">
+                                <input class="small" type="text">
+                            </td>
+                            
+                            <td scope=" ">
+                                <input class="small" type="text">
+                            </td>
+                                      
+                            <td scope=" ">
+                                <input class="small" type="text">
+                            </td>
+                         
+                            
+                            <td scope="">
+                                <input class="small" type="text">
+                            </td>
+
+                            <td>
+                                <button id="anadirModal" class="btn btn-warning">-</button>
+                            </td>
+                        
+                            
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary">+</button>
             </div>
 
 

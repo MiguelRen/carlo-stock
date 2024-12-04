@@ -127,7 +127,7 @@ include '../../vistas/app_partes/modales/articulos.php'
 
 
 
-    print_r($numero_factura,$empresa);
+
            
     $consulta = $coneccionBD->prepare("SELECT * FROM factura");
     $consulta->execute();
