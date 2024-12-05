@@ -106,9 +106,9 @@ include '../../vistas/app_partes/modales/articulos.php'
                                 
                             class="btn btn-primary">Eliminar</button>
                         
-                            <button type="submit" name="accion" value="Eliminar"
+                            <button  name="accion" value="art"
                                 
-                                class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-test">Modal</button>
+                                class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-test" id="boton_agregar_art">Agregar Articulos</button>
                             
                         </div>
 
