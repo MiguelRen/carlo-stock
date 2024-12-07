@@ -8,12 +8,12 @@ $coneccionBD = BD::crear_instancia();
 //Recepcion de la informaciopn del formulario de facturas
 
 
-if (isset($_POST) ) {
+if (isset($_POST)) {
 
 
     $accion = $_POST['accion'] ?? '';
 
-   
+
     switch ($accion) {
         case 'Agregar':
 
@@ -31,8 +31,6 @@ if (isset($_POST) ) {
             $descuento = $_POST['descuento_input'] ?? '';
             $recargo = $_POST['recargo_input'] ?? '';
             $tasa = $_POST['tasa_input'] ?? '';
-        
-
 
             $sql = "INSERT INTO factura (numero,empresa,comprador,vendedor,tipo_documento,tipo_pago,condicion_pago,
             fecha_vencimiento,fecha_emision,sub_total,iva,descuento,recargo,tasa) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -56,6 +54,37 @@ if (isset($_POST) ) {
 
             $consulta->execute();
 
+
+            //agregando los articulos
+            $descripcion = $_POST['modal-descripcion'];
+            $tipo_unidad = $_POST['modal-unidad'];
+            $tipo_art = $_POST['modal-tipo_art'];
+            
+            $cantidad = $_POST['modal-cantidad'];
+            $precio = $_POST['modal-precio'];
+            $iva = $_POST['modal-iva'];
+            $neto = $_POST['modal-neto'];
+
+            $sql_detalle = "INSERT INTO detalle_factura (id_factura_fk,art_desc,tipo_unidad,tipo_art,cant,precio_unit,sub_iva,neto)
+            values (?,?,?,?,?,?,?,?)";
+
+            $consulta_detalle = $coneccionBD->prepare($sql_detalle);
+
+            $consulta_detalle->bindParam(1, $numero_factura);
+            $consulta_detalle->bindParam(1, $descripcion); 
+            $consulta_detalle->bindParam(2, $tipo_unidad);
+            $consulta_detalle->bindParam(3, $tipo_art);
+            $consulta_detalle->bindParam(4, $cantidad);
+            $consulta_detalle->bindParam(5, $precio);
+            $consulta_detalle->bindParam(6, $iva);
+            $consulta_detalle->bindParam(7, $cantidad * $precio);
+
+            $consulta_detalle->execute();
+
+
+
+
+
             break;
 
         case 'Seleccionar':
@@ -66,15 +95,15 @@ if (isset($_POST) ) {
             $consulta->bindParam(1, $factura_bd_id);
             $consulta->execute();
             $lista_seleccion = $consulta->fetch(PDO::FETCH_ASSOC);
-            
+
 
             $factura_id_seleccion = $lista_seleccion['factura_id'] ?? '';
             $numero_seleccion = $lista_seleccion['numero'] ?? '';
-            $empresa_seleccion = $lista_seleccion['empresa'] ?? '' ;
+            $empresa_seleccion = $lista_seleccion['empresa'] ?? '';
             $monto_seleccion = $lista_seleccion['comprador'] ?? '';
 
 
-        
+
             $monto_seleccion = $lista_seleccion['vendedor'] ?? '';
             $monto_seleccion = $lista_seleccion['tipo_documento'] ?? '';
             $monto_seleccion = $lista_seleccion['tipo_pago'] ?? '';
@@ -88,12 +117,12 @@ if (isset($_POST) ) {
 
             $monto_seleccion = $lista_seleccion['recargo'] ?? '';
             $monto_seleccion = $lista_seleccion['tasa'] ?? '';
-            
 
 
 
 
-            
+
+
             break;
 
         case 'Editar':
@@ -101,14 +130,14 @@ if (isset($_POST) ) {
             $empresa = $_POST['empresa_input'] ?? '';
             $monto = $_POST['monto_input'] ?? '';
             $factura_id = $_POST['factura_id'] ?? '';
-            
-            $sql = 'UPDATE factura SET numero = ? , empresa = ? , monto= ? WHERE factura_id = ? ';  
+
+            $sql = 'UPDATE factura SET numero = ? , empresa = ? , monto= ? WHERE factura_id = ? ';
             $consulta = $coneccionBD->prepare($sql);
-            $consulta->bindParam( 1 , $numero_factura);
-            $consulta->bindParam( 2 , $empresa);
-            $consulta->bindParam( 3 , $monto);
-            $consulta->bindParam( 4 , $factura_id);
-           
+            $consulta->bindParam(1, $numero_factura);
+            $consulta->bindParam(2, $empresa);
+            $consulta->bindParam(3, $monto);
+            $consulta->bindParam(4, $factura_id);
+
             $consulta->execute();
 
 
@@ -119,8 +148,13 @@ if (isset($_POST) ) {
             print_r($factura_id ?? 'hjnmdfgvfj');
             $sql = 'DELETE FROM factura WHERE factura_id = ?';
             $consulta = $coneccionBD->prepare($sql);
-            $consulta->bindParam(1,$factura_id);
+            $consulta->bindParam(1, $factura_id);
             $consulta->execute();
+
+            break;
+
+        case 'art-modal':
+            print_r("aqui el print");
 
             break;
     }

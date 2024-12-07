@@ -103,12 +103,12 @@ include '../../vistas/app_partes/modales/articulos.php'
                             <button type="submit" name="accion" value="Agregar" class="btn btn-primary">Agregar</button>
                             <button type="submit" name="accion" value="Editar" class="btn btn-primary">Editar</button>
                             <button type="submit" name="accion" value="Eliminar"
-                                
                             class="btn btn-primary">Eliminar</button>
-                        
                             <button  name="accion" value="art"
+                            class="btn btn-primary"  id="boton_agregar_art">Agregar Articulos</button>
                                 
-                                class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-test" id="boton_agregar_art">Agregar Articulos</button>
+                            
+                                
                             
                         </div>
 
