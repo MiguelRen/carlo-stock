@@ -17,72 +17,89 @@ if (isset($_POST)) {
     switch ($accion) {
         case 'Agregar':
 
-            $numero_factura = $_POST['numero_factura_input'] ?? '';
-            $empresa = $_POST['empresa_input'] ?? '';
-            $comprador = $_POST['comprador_input'] ?? '';
-            $vendedor = $_POST['vendedor_input'] ?? '';
-            $tipo_documento = $_POST['tipo_documento_input'] ?? '';
-            $tipo_pago = $_POST['tipo_pago_input'] ?? '';
-            $condicion_pago = $_POST['condicion_pago_input'] ?? '';
-            $fecha_emision = $_POST['fecha_emision_input'] ?? '';
-            $fecha_vencimiento = $_POST['fecha_vencimiento_input'] ?? '';
-            $sub_total = $_POST['sub_total_input'] ?? '';
-            $iva = $_POST['iva_input'] ?? '';
-            $descuento = $_POST['descuento_input'] ?? '';
-            $recargo = $_POST['recargo_input'] ?? '';
-            $tasa = $_POST['tasa_input'] ?? '';
-
-            $sql = "INSERT INTO factura (numero,empresa,comprador,vendedor,tipo_documento,tipo_pago,condicion_pago,
-            fecha_vencimiento,fecha_emision,sub_total,iva,descuento,recargo,tasa) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            $consulta = $coneccionBD->prepare($sql);
-
-            $consulta->bindParam(1, $numero_factura);
-            $consulta->bindParam(2, $empresa);
-            $consulta->bindParam(3, $comprador);
-            $consulta->bindParam(4, $vendedor);
-            $consulta->bindParam(5, $tipo_documento);
-            $consulta->bindParam(6, $tipo_pago);
-            $consulta->bindParam(7, $condicion_pago);
-            $consulta->bindParam(8, $fecha_vencimiento);
-            $consulta->bindParam(9, $fecha_emision);
-            $consulta->bindParam(10, $sub_total);
-            $consulta->bindParam(11, $iva);
-            $consulta->bindParam(12, $descuento);
-            $consulta->bindParam(13, $recargo);
-            $consulta->bindParam(14, $tasa);
-
-
-            $consulta->execute();
-
-
-            //agregando los articulos
-            $descripcion = $_POST['modal-descripcion'];
-            $tipo_unidad = $_POST['modal-unidad'];
-            $tipo_art = $_POST['modal-tipo_art'];
-            
-            $cantidad = $_POST['modal-cantidad'];
-            $precio = $_POST['modal-precio'];
-            $iva = $_POST['modal-iva'];
-            $neto = $_POST['modal-neto'];
-
-            $sql_detalle = "INSERT INTO detalle_factura (id_factura_fk,art_desc,tipo_unidad,tipo_art,cant,precio_unit,sub_iva,neto)
-            values (?,?,?,?,?,?,?,?)";
-
-            $consulta_detalle = $coneccionBD->prepare($sql_detalle);
-
-            $consulta_detalle->bindParam(1, $numero_factura);
-            $consulta_detalle->bindParam(1, $descripcion); 
-            $consulta_detalle->bindParam(2, $tipo_unidad);
-            $consulta_detalle->bindParam(3, $tipo_art);
-            $consulta_detalle->bindParam(4, $cantidad);
-            $consulta_detalle->bindParam(5, $precio);
-            $consulta_detalle->bindParam(6, $iva);
-            $consulta_detalle->bindParam(7, $cantidad * $precio);
-
-            $consulta_detalle->execute();
+            try {
 
 
 
+                $numero_factura = $_POST['numero_factura_input'] ?? '';
+                $empresa = $_POST['empresa_input'] ?? '';
+                $comprador = $_POST['comprador_input'] ?? '';
+                $vendedor = $_POST['vendedor_input'] ?? '';
+                $tipo_documento = $_POST['tipo_documento_input'] ?? '';
+                $tipo_pago = $_POST['tipo_pago_input'] ?? '';
+                $condicion_pago = $_POST['condicion_pago_input'] ?? '';
+                $fecha_emision = $_POST['fecha_emision_input'] ?? '';
+                $fecha_vencimiento = $_POST['fecha_vencimiento_input'] ?? '';
+                $sub_total = $_POST['sub_total_input'] ?? '';
+                $iva = $_POST['iva_input'] ?? '';
+                $descuento = $_POST['descuento_input'] ?? '';
+                $recargo = $_POST['recargo_input'] ?? '';
+                $tasa = $_POST['tasa_input'] ?? '';
+
+                $sql = "INSERT INTO factura (numero,empresa,comprador,vendedor,tipo_documento,tipo_pago,condicion_pago,
+                fecha_vencimiento,fecha_emision,sub_total,iva,descuento,recargo,tasa) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                $consulta = $coneccionBD->prepare($sql);
+
+                $consulta->bindParam(1, $numero_factura);
+                $consulta->bindParam(2, $empresa);
+                $consulta->bindParam(3, $comprador);
+                $consulta->bindParam(4, $vendedor);
+                $consulta->bindParam(5, $tipo_documento);
+                $consulta->bindParam(6, $tipo_pago);
+                $consulta->bindParam(7, $condicion_pago);
+                $consulta->bindParam(8, $fecha_vencimiento);
+                $consulta->bindParam(9, $fecha_emision);
+                $consulta->bindParam(10, $sub_total);
+                $consulta->bindParam(11, $iva);
+                $consulta->bindParam(12, $descuento);
+                $consulta->bindParam(13, $recargo);
+                $consulta->bindParam(14, $tasa);
+
+
+                $consulta->execute();
+
+
+                //agregando los articulos
+                $descripcion = $_POST['modal-descripcion'];
+                $tipo_unidad = $_POST['modal-unidad'];
+                $tipo_art = $_POST['modal-tipo_art'];
+
+                $cantidad = $_POST['modal-cantidad'];
+                $precio = $_POST['modal-precio'];
+                $iva = $_POST['modal-iva'];
+                $neto = $_POST['modal-neto'];
+
+                // buscando el id de la factura donde se va a  guardar la informacion 
+               
+                $sql_comprobacion = 'SELECT factura_id FROM factura where numero = ?';
+                $consulta_comprobacion = $coneccionBD->prepare($sql_comprobacion);
+                $consulta_comprobacion -> bindParam(1,$numero_factura);
+                $consulta_comprobacion -> execute();
+                
+                $factura_id = $consulta_comprobacion->fetch(PDO::FETCH_ASSOC);
+                
+                //consulta para ingresar los detalles
+                $sql_detalle = "INSERT INTO detalle_factura (id_factura_fk,art_desc,tipo_unidad,tipo_art,cant,precio_unit,sub_iva,neto)
+                            values (?,?,?,?,?,?,?,?)";
+                
+
+                $consulta_detalle = $coneccionBD->prepare($sql_detalle);
+                $consulta_detalle->bindParam(1, $factura_id['factura_id']);
+                $consulta_detalle->bindParam(2, $descripcion);
+                $consulta_detalle->bindParam(3, $tipo_unidad);
+                $consulta_detalle->bindParam(4, $tipo_art);
+                $consulta_detalle->bindParam(5, $cantidad);
+                $consulta_detalle->bindParam(6, $precio);
+                $consulta_detalle->bindParam(7, $iva);
+                $consulta_detalle->bindParam(8, $neto);
+
+                $consulta_detalle->execute();
+
+
+
+            } catch (\Throwable $th) {
+                print_r(throw $th);
+            }
 
 
             break;
@@ -145,7 +162,7 @@ if (isset($_POST)) {
         case 'Eliminar':
 
             $factura_id = $_POST['id_seleccion'] ?? '';
-            print_r($factura_id ?? 'hjnmdfgvfj');
+           
             $sql = 'DELETE FROM factura WHERE factura_id = ?';
             $consulta = $coneccionBD->prepare($sql);
             $consulta->bindParam(1, $factura_id);

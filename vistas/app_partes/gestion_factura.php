@@ -2,7 +2,6 @@
 include '../estructura_principal/cabecera.php';
 include '../../modelos/m_facturas.php';
 
-include '../../vistas/app_partes/modales/articulos.php'
 ?>
 
 <div class="row ">
@@ -25,7 +24,7 @@ include '../../vistas/app_partes/modales/articulos.php'
                             <div class="col-6 ">
 
 
-                                <input type="text" name="factura_id" value="<?php echo $factura_id_seleccion ?>" hidden>
+                                <input type="text" name="factura_id" value="" hidden>
 
 
 
@@ -97,19 +96,17 @@ include '../../vistas/app_partes/modales/articulos.php'
 
 
 
-
+<?php 
+    include '../../vistas/app_partes/modales/articulos.php';
+?>
                         
                         <div class="fs-5   btn-group ">
                             <button type="submit" name="accion" value="Agregar" class="btn btn-primary">Agregar</button>
                             <button type="submit" name="accion" value="Editar" class="btn btn-primary">Editar</button>
                             <button type="submit" name="accion" value="Eliminar"
                             class="btn btn-primary">Eliminar</button>
-                            <button  name="accion" value="art"
+                            <button type="submit" name="accion" value="art"
                             class="btn btn-primary"  id="boton_agregar_art">Agregar Articulos</button>
-                                
-                            
-                                
-                            
                         </div>
 
                     </form>
@@ -213,5 +210,6 @@ include '../../vistas/app_partes/modales/articulos.php'
 
 
 <?php
-include '../estructura_principal/pie.php'
+include '../estructura_principal/pie.php';
+
     ?>

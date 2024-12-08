@@ -3,7 +3,7 @@
         <a href="" class="close">Cerrar</a>
 
 
-        <form action="" method="post">
+     
 
             <table>
                 <thead>
@@ -44,12 +44,10 @@
                     
                 </tbody>
                 <tfoot>
-                    <button accion="accion" value="Agregar">Guardar y Finalizar</button>
+                <button type="submit" name="accion" value="Agregar" class="btn btn-primary">Guardar y Finalizar</button>
                     <button >Cancelar</button>
                 </tfoot>
             </table>
 
-        </form>
-        
     </div>
 </section>
