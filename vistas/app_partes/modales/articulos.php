@@ -5,7 +5,7 @@
 
      
 
-            <table>
+            <table id="tabla_modal">
                 <thead>
                     <tr>
                         <th>Descripcion</th>
@@ -41,11 +41,18 @@
                             <input type="text" name="modal-neto">
                         </td>
                     </tr>
-                    
+                    <tr>
+                        <td><button  name accion="accion" value="ag_detalle" class="btn btn-primary" id="ag_det_button">+</button></td>
+                    </tr>
                 </tbody>
                 <tfoot>
-                <button type="submit" name="accion" value="Agregar" class="btn btn-primary">Guardar y Finalizar</button>
-                    <button >Cancelar</button>
+                    <tr>
+                        <td colspan="6">
+
+                            <button type="submit" name="accion" value="Agregar" class="btn btn-primary">Guardar y Finalizar</button>
+                                <button >Cancelar</button>
+                        </td>
+                    </tr>
                 </tfoot>
             </table>
 
