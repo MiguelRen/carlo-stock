@@ -1,10 +1,9 @@
 const modal1 = document.querySelector('.modal1');
-console.log(modal1);
-console.log(modal1.classList);
+
 
 // trayendo el boton  para mostar el modal
 const modal_button = document.getElementById("boton_agregar_art");
-console.log(modal_button);
+
 
 
 modal_button.addEventListener('click',(e) => {
@@ -20,19 +19,45 @@ const ag_det_button = document.getElementById("ag_det_button");
 
 //trayendo la tabla entera del modal
 const tabla = document.getElementById("tabla_modal");
-console.log(tabla);
 
 
 ag_det_button.addEventListener('click', e => {
-  console.log(tabla);
    
 
   function agregarFila(tabla){
-    let fila_nueva = tabla.insertRow(0);
-    let celda_nueva = fila_nueva.insertCell(0);
-    celda_nueva.innerHTML = "<input type='text' />";
-    let texto_nuevo = document.createTextNode("nueva fila");
-    celda_nueva.appendChild(texto_nuevo);
+    console.log(tabla);
+    
+    let contador_fila = 0;
+
+    let nueva_fila = document.createElement('tr');
+// console.log(nueva_fila);
+
+  nueva_fila.innerHTML =`
+    <td id="modal-descripcion_${contador_fila}">
+      <input type="text" class="w" >
+    </td>
+    <td id="modal-unidad_${contador_fila}">
+      <input type="text" class="w" >
+    </td>
+    <td id="modal-tipo_art_${contador_fila}">
+      <input type="text" class="w" >
+    </td>
+    <td id="modal-cantidad_${contador_fila}">
+      <input type="text" class="w" >
+    </td>
+    <td id="modal-precio_${contador_fila}">
+      <input type="text" class="w" >
+    </td>
+    <td class="w" id="modal-iva_${contador_fila}">
+      <input type="text" >
+    </td>
+    <td id="modal-neto_${contador_fila}">
+      <input type="text" class="w" >
+    </td>
+    `;
+    
+    document.getElementById('tbody_modal').appendChild(nueva_fila);
+    contador_fila ++;
   }
 
   agregarFila(tabla);
