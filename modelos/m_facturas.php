@@ -39,7 +39,7 @@ if (isset($_POST)) {
                 $sql = "INSERT INTO factura (numero,empresa,comprador,vendedor,tipo_documento,tipo_pago,condicion_pago,
                 fecha_vencimiento,fecha_emision,sub_total,iva,descuento,recargo,tasa) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 $consulta = $coneccionBD->prepare($sql);
-
+                
                 $consulta->bindParam(1, $numero_factura);
                 $consulta->bindParam(2, $empresa);
                 $consulta->bindParam(3, $comprador);
@@ -54,7 +54,6 @@ if (isset($_POST)) {
                 $consulta->bindParam(12, $descuento);
                 $consulta->bindParam(13, $recargo);
                 $consulta->bindParam(14, $tasa);
-
 
                 $consulta->execute();
 
