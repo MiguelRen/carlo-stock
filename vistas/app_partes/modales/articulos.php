@@ -1,3 +1,4 @@
+
 <section class="modal1 d-flex">
     <div class="modal_container ">
 
@@ -9,7 +10,11 @@
 
             <div class="table_container">
 
+            <?php 
+                print_r("buajajajaj");
+        var_dump($_POST);
 
+?>
                 <table id="tabla_modal">
 
 
@@ -41,7 +46,7 @@
 
 
 
-            <button type="submit" name="accion" value="Agregar" class="btn btn-primary">Guardar y
+            <button type="submit" name="accion" value="Agregar" class="btn btn-primary" id="guar_registro_button">Guardar y
                 Finalizar</button>
             <button>Cancelar</button>
 

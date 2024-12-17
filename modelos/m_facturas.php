@@ -10,7 +10,8 @@ $coneccionBD = BD::crear_instancia();
 
 if (isset($_POST)) {
 
-
+    
+var_dump($_POST);
     $accion = $_POST['accion'] ?? '';
 
 
@@ -20,7 +21,7 @@ if (isset($_POST)) {
             try {
 
 
-                print_r($_POST);
+           
                 $numero_factura = $_POST['numero_factura_input'] ?? '';
                 $empresa = $_POST['empresa_input'] ?? '';
                 $comprador = $_POST['comprador_input'] ?? '';
@@ -68,14 +69,14 @@ if (isset($_POST)) {
                 // }
 
                 //agregando los articulos
-                $descripcion = $_POST['modal-descripcion'];
-                $tipo_unidad = $_POST['modal-unidad'];
-                $tipo_art = $_POST['modal-tipo_art'];
+                // $descripcion = $_POST['modal-descripcion'];
+                // $tipo_unidad = $_POST['modal-unidad'];
+                // $tipo_art = $_POST['modal-tipo_art'];
 
-                $cantidad = $_POST['modal-cantidad'];
-                $precio = $_POST['modal-precio'];
-                $iva = $_POST['modal-iva'];
-                $neto = $_POST['modal-neto'];
+                // $cantidad = $_POST['modal-cantidad'];
+                // $precio = $_POST['modal-precio'];
+                // $iva = $_POST['modal-iva'];
+                // $neto = $_POST['modal-neto'];
 
                 // buscando el id de la factura donde se va a  guardar la informacion 
 
@@ -86,22 +87,29 @@ if (isset($_POST)) {
 
                 $factura_id = $consulta_comprobacion->fetch(PDO::FETCH_ASSOC);
 
+
+                print_r($_POST);
+
+
+
+                ## imprimiendo $_POST
+
                 //consulta para ingresar los detalles
-                $sql_detalle = "INSERT INTO detalle_factura (id_factura_fk,art_desc,tipo_unidad,tipo_art,cant,precio_unit,sub_iva,neto)
-                            values (?,?,?,?,?,?,?,?)";
+                // $sql_detalle = "INSERT INTO detalle_factura (id_factura_fk,art_desc,tipo_unidad,tipo_art,cant,precio_unit,sub_iva,neto)
+                //             values (?,?,?,?,?,?,?,?)";
 
 
-                $consulta_detalle = $coneccionBD->prepare($sql_detalle);
-                $consulta_detalle->bindParam(1, $factura_id['factura_id']);
-                $consulta_detalle->bindParam(2, $descripcion);
-                $consulta_detalle->bindParam(3, $tipo_unidad);
-                $consulta_detalle->bindParam(4, $tipo_art);
-                $consulta_detalle->bindParam(5, $cantidad);
-                $consulta_detalle->bindParam(6, $precio);
-                $consulta_detalle->bindParam(7, $iva);
-                $consulta_detalle->bindParam(8, $neto);
+                // $consulta_detalle = $coneccionBD->prepare($sql_detalle);
+                // $consulta_detalle->bindParam(1, $factura_id['factura_id']);
+                // $consulta_detalle->bindParam(2, $descripcion);
+                // $consulta_detalle->bindParam(3, $tipo_unidad);
+                // $consulta_detalle->bindParam(4, $tipo_art);
+                // $consulta_detalle->bindParam(5, $cantidad);
+                // $consulta_detalle->bindParam(6, $precio);
+                // $consulta_detalle->bindParam(7, $iva);
+                // $consulta_detalle->bindParam(8, $neto);
 
-                $consulta_detalle->execute();
+                // $consulta_detalle->execute();
 
 
 

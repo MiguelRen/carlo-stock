@@ -17,7 +17,7 @@ include '../../modelos/m_facturas.php';
                 </div>
                 <div class="card-body ">
                     <h3>Añadir factura</h3>
-                    <form action="" method="post">
+                    <form action="" method="post" id="form_ppal">
 
                         <div class="row float">
 
