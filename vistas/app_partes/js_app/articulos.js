@@ -37,10 +37,9 @@ function agregarFila(e) {
   const tr = document.createElement("tr");
 
   fila_arreglo.forEach((item) => {
-   
-
     const td = document.createElement("td");
     const input = document.createElement("input");
+    
 
     input.classList.add("w");
     tr.appendChild(td);
@@ -90,37 +89,41 @@ try {
   const form_ppal = document.getElementById("form_ppal");
 
   form_ppal.addEventListener("click", (e) => {
-    if ((e.target.id == "guar_registro_button")) {
+    if (e.target.id == "guar_registro_button") {
       const tbody_modal = document.getElementById("tbody_modal");
       const filas = Array.from(tbody_modal.getElementsByTagName("tr"));
 
-      filas.forEach((element) =>{
+      filas.forEach((element) => {
+        const celda = Array.from(element.getElementsByTagName("input"));
 
-                const celda = Array.from(element.getElementsByTagName("input"));
-                
-                const celdas_array = celda.map(item => item.value);
-                try {
-                  fetch("../../modelos/m_facturas.php",{
-                    "method" : "POST",
-                    "headers" :{
-                      "Content-Type" : " application/json; charset=utf-8"
-                    },
-                    "body" : JSON.stringify(celdas_array)
-                  }).then(response =>{
-                    console.log(response);
-                    
-                  });
-                  
-                } catch (error) {
-                  console.log(error);
-                  
-                }
-                
+        const celdas_array = celda.map((item) => item.value);
+
+        const data = JSON.stringify(celdas_array);
+
+        try {
+          const opciones = {
+            method: "POST",
+            headers : {
+              "Content-Type" : "application/json",
+            },
+            body : JSON.stringify(data),
+          };
+
+          fetch("../../modelos/controladora.php", opciones)
+            .then((response) => {
+              if(!response.ok){
+                throw new  Error("error en repuesta" + response.statusText);
+              }
+
+              return response.json();
+          });
+        } catch (error) {
+          console.log(error);
+        }
       });
     }
-  }
-  )
-  
+  });
+
   const guar_registro_button = document.getElementById("guar_registro_button");
 } catch (error) {
   console.log(error);

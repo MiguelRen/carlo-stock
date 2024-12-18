@@ -10,11 +10,6 @@
 
             <div class="table_container">
 
-            <?php 
-                print_r("buajajajaj");
-        var_dump($_POST);
-
-?>
                 <table id="tabla_modal">
 
 
