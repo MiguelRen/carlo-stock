@@ -14,7 +14,6 @@ modal_button.addEventListener("click", (e) => {
 //trayendo el boton de agregar nuevo renglon en el modal
 const ag_det_button = document.getElementById("ag_det_button");
 
-let contador_fila = 0;
 
 //trayendo la tabla entera del modal
 // const tabla = document.getElementById("tabla_modal");
@@ -39,7 +38,7 @@ function agregarFila(e) {
   fila_arreglo.forEach((item) => {
     const td = document.createElement("td");
     const input = document.createElement("input");
-    
+    input.setAttribute("id",`${item}`);
 
     input.classList.add("w");
     tr.appendChild(td);
@@ -76,7 +75,7 @@ function agregarFila(e) {
 
   document.getElementById("tbody_modal").appendChild(fragmento);
 
-  contador_fila = contador_fila + 1;
+ 
 }
 
 ag_det_button.addEventListener("click", (e) => {
@@ -95,8 +94,9 @@ try {
 
       filas.forEach((element) => {
         const celda = Array.from(element.getElementsByTagName("input"));
-
-        const celdas_array = celda.map((item) => item.value);
+        
+       
+        const celdas_array = celda.map.set((item) => item.value);
 
         const data = JSON.stringify(celdas_array);
 
@@ -124,7 +124,6 @@ try {
     }
   });
 
-  const guar_registro_button = document.getElementById("guar_registro_button");
 } catch (error) {
   console.log(error);
 }
