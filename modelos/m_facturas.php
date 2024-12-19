@@ -88,10 +88,6 @@ var_dump($_POST);
                 $factura_id = $consulta_comprobacion->fetch(PDO::FETCH_ASSOC);
 
 
-                print_r($_POST);
-
-
-
                 ## imprimiendo $_POST
 
                 //consulta para ingresar los detalles
@@ -120,6 +116,45 @@ var_dump($_POST);
 
             break;
 
+
+        case 'agregar_detalle':
+            try {
+
+                $descrip  = $_POST["modal-descripcion"];
+                $unidad   = $_POST["modal-unidad"];
+                $tipo_art = $_POST["modal-tipo_art"];
+                $cantidad = $_POST["modal-cantidad"];
+                $precio   = $_POST["modal-precio"];
+                $iva      = $_POST["modal-iva"];
+                $neto     = $_POST["modal-neto"];
+
+
+
+                $sql = "INSERT INTO factura (id_detalle_factura,id_factura_fk,art_desc,tipo_unidad,tipo_art,cant,precio_unit,sub_iva,neto)
+                values (?,?,?,?,?,?,?,?,?)";
+
+                $consulta = $connecionBD->prepare($sql);
+
+                $consulta->bindParam(1, $descript);
+                $consulta->bindParam(2, $unidad );
+                $consulta -> bindParam (3,$tipo_art);
+                $consulta->bindParam(4, $cantidad);
+                $consulta->bindParam(5, $precio );
+                $consulta -> bindParam (6,$iva);
+                $consulta -> bindParam (7,$neto);
+
+                $consulta -> execute();
+                 
+
+
+
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+
+            break;
+
+        
         case 'Seleccionar':
             $factura_bd_id = $_POST['id_seleccion'];
 

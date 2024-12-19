@@ -14,7 +14,6 @@ modal_button.addEventListener("click", (e) => {
 //trayendo el boton de agregar nuevo renglon en el modal
 const ag_det_button = document.getElementById("ag_det_button");
 
-
 //trayendo la tabla entera del modal
 // const tabla = document.getElementById("tabla_modal");
 
@@ -38,7 +37,7 @@ function agregarFila(e) {
   fila_arreglo.forEach((item) => {
     const td = document.createElement("td");
     const input = document.createElement("input");
-    input.setAttribute("id",`${item}`);
+    input.setAttribute("id", `${item}`);
 
     input.classList.add("w");
     tr.appendChild(td);
@@ -47,35 +46,7 @@ function agregarFila(e) {
     fragmento.appendChild(tr);
   });
 
-  // console.log(nueva_fila);
-
-  // nueva_fila.innerHTML =`
-  //   <td  id="modal-descripcion_${contador_fila}">
-  //     <input class="w" type="text" class="w" >
-  //   </td>
-  //   <td  id="modal-unidad_${contador_fila}">
-  //     <input class="w" type="text" >
-  //   </td>
-  //   <td  id="modal-tipo_art_${contador_fila}">
-  //     <input class="w" type="text" >
-  //   </td>
-  //   <td  id="modal-cantidad_${contador_fila}">
-  //     <input class="w" type="text" >
-  //   </td>
-  //   <td  id="modal-precio_${contador_fila}">
-  //     <input class="w" type="text" >
-  //   </td>
-  //   <td  id="modal-iva_${contador_fila}">
-  //     <input class="w" type="text" >
-  //   </td>
-  //   <td  id="modal-neto_${contador_fila}">
-  //     <input class="w" type="text" >
-  //   </td>
-  //   `;
-
   document.getElementById("tbody_modal").appendChild(fragmento);
-
- 
 }
 
 ag_det_button.addEventListener("click", (e) => {
@@ -84,46 +55,59 @@ ag_det_button.addEventListener("click", (e) => {
   agregarFila();
 });
 
-try {
-  const form_ppal = document.getElementById("form_ppal");
 
-  form_ppal.addEventListener("click", (e) => {
-    if (e.target.id == "guar_registro_button") {
-      const tbody_modal = document.getElementById("tbody_modal");
-      const filas = Array.from(tbody_modal.getElementsByTagName("tr"));
 
-      filas.forEach((element) => {
-        const celda = Array.from(element.getElementsByTagName("input"));
-        
-       
-        const celdas_array = celda.map.set((item) => item.value);
 
-        const data = JSON.stringify(celdas_array);
 
-        try {
-          const opciones = {
-            method: "POST",
-            headers : {
-              "Content-Type" : "application/json",
-            },
-            body : JSON.stringify(data),
-          };
+const form_ppal = document.getElementById("form_ppal");
 
-          fetch("../../modelos/controladora.php", opciones)
-            .then((response) => {
-              if(!response.ok){
-                throw new  Error("error en repuesta" + response.statusText);
-              }
 
-              return response.json();
-          });
-        } catch (error) {
-          console.log(error);
+function guardar_detalle(e){
+  if (e.target.id == "guar_registro_button") {
+    const tbody_modal = document.getElementById("tbody_modal");
+    const filas = Array.from(tbody_modal.getElementsByTagName("tr"));
+  
+    filas.forEach((element) => {
+      const celda = Array.from(element.getElementsByTagName("input"));
+  
+      const celdas_array = [];
+      for (i = 0; i < celda.length; i++) {
+        celdas_array.push({
+          [celda[i].id]: celda[i].value,
+        });
+      }
+    });
+    console.log(celdas_array);
+  
+    celdas_array.push({ accion: "agregar_detalle" });
+  
+    console.log(celdas_array);
+    
+    const data = JSON.stringify(celdas_array);
+  
+    try {
+      const opciones = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      };
+  
+      fetch("../../modelos/controladora.php", opciones).then((response) => {
+        if (!response.ok) {
+          throw new Error("error en repuesta" + response.statusText);
         }
+  
+        return response.json();
       });
+    } catch (error) {
+      console.log(error);
     }
-  });
+  }
 
-} catch (error) {
-  console.log(error);
 }
+
+form_ppal.addEventListener("click", (e) => {
+  guardar_detalle(e);
+});
