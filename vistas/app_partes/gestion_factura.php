@@ -96,18 +96,15 @@ include '../../modelos/m_facturas.php';
 
 
 
-<?php 
-    include '../../vistas/app_partes/modales/articulos.php';
-?>
                         
                         <div class="fs-5   btn-group ">
-                            <button type="submit" name="accion" value="Agregar" class="btn btn-primary">Agregar</button>
-                            <button type="submit" name="accion" value="Editar" class="btn btn-primary">Editar</button>
-                            <button type="submit" name="accion" value="Eliminar"
-                            class="btn btn-primary">Eliminar</button>
+
                             <button type="submit" name="accion" value="art"
                             class="btn btn-primary"  id="boton_agregar_art">Agregar Articulos</button>
                         </div>
+<?php 
+    include '../../vistas/app_partes/modales/articulos.php';
+?>
 
                     </form>
                 </div>
@@ -139,7 +136,7 @@ include '../../modelos/m_facturas.php';
     <div class="col-9 border">
         <table class="table">
             <thead>
-                <tr>
+                <tr id="web">
                     <td  hidden>ID</td>
                     <td class="small">Nº Factura</td>
                     <td class="small">Empresa</td>

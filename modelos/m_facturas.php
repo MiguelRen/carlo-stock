@@ -10,8 +10,8 @@ $coneccionBD = BD::crear_instancia();
 
 if (isset($_POST)) {
 
-    
-var_dump($_POST);
+
+    var_dump($_POST);
     $accion = $_POST['accion'] ?? '';
 
 
@@ -21,7 +21,7 @@ var_dump($_POST);
             try {
 
 
-           
+
                 $numero_factura = $_POST['numero_factura_input'] ?? '';
                 $empresa = $_POST['empresa_input'] ?? '';
                 $comprador = $_POST['comprador_input'] ?? '';
@@ -80,12 +80,6 @@ var_dump($_POST);
 
                 // buscando el id de la factura donde se va a  guardar la informacion 
 
-                $sql_comprobacion = 'SELECT factura_id FROM factura where numero = ?';
-                $consulta_comprobacion = $coneccionBD->prepare($sql_comprobacion);
-                $consulta_comprobacion->bindParam(1, $numero_factura);
-                $consulta_comprobacion->execute();
-
-                $factura_id = $consulta_comprobacion->fetch(PDO::FETCH_ASSOC);
 
 
                 ## imprimiendo $_POST
@@ -119,14 +113,24 @@ var_dump($_POST);
 
         case 'agregar_detalle':
             try {
+                $sql_comprobacion = 'SELECT factura_id FROM factura where numero = ?';
+                $consulta_comprobacion = $coneccionBD->prepare($sql_comprobacion);
+                $consulta_comprobacion->bindParam(1, $numero_factura);
+                $consulta_comprobacion->execute();
 
-                $descrip  = $_POST["modal-descripcion"];
-                $unidad   = $_POST["modal-unidad"];
+                $factura_id = $consulta_comprobacion->fetch(PDO::FETCH_ASSOC);
+
+
+
+
+                $descrip = $_POST["modal-descripcion"];
+                $unidad = $_POST["modal-unidad"];
                 $tipo_art = $_POST["modal-tipo_art"];
                 $cantidad = $_POST["modal-cantidad"];
-                $precio   = $_POST["modal-precio"];
-                $iva      = $_POST["modal-iva"];
-                $neto     = $_POST["modal-neto"];
+                $precio = $_POST["modal-precio"];
+
+                $iva = $_POST["modal-iva"];
+                $neto = $_POST["modal-neto"];
 
 
 
@@ -136,15 +140,15 @@ var_dump($_POST);
                 $consulta = $connecionBD->prepare($sql);
 
                 $consulta->bindParam(1, $descript);
-                $consulta->bindParam(2, $unidad );
-                $consulta -> bindParam (3,$tipo_art);
+                $consulta->bindParam(2, $unidad);
+                $consulta->bindParam(3, $tipo_art);
                 $consulta->bindParam(4, $cantidad);
-                $consulta->bindParam(5, $precio );
-                $consulta -> bindParam (6,$iva);
-                $consulta -> bindParam (7,$neto);
+                $consulta->bindParam(5, $precio);
+                $consulta->bindParam(6, $iva);
+                $consulta->bindParam(7, $neto);
 
-                $consulta -> execute();
-                 
+                $consulta->execute();
+
 
 
 
@@ -154,7 +158,7 @@ var_dump($_POST);
 
             break;
 
-        
+
         case 'Seleccionar':
             $factura_bd_id = $_POST['id_seleccion'];
 
