@@ -1,6 +1,6 @@
 <?php
-include '../estructura_principal/cabecera.php';
-include '../../modelos/m_facturas.php';
+include '../../estructura_principal/cabecera.php';
+include '../../../modelos/m_facturas.php';
 
 ?>
 
@@ -103,7 +103,7 @@ include '../../modelos/m_facturas.php';
                             class="btn btn-primary"  id="boton_agregar_art">Agregar Articulos</button>
                         </div>
 <?php 
-    include '../../vistas/app_partes/modales/articulos.php';
+    include '../php_app/modales/articulos.php';
 ?>
 
                     </form>
@@ -115,7 +115,7 @@ include '../../modelos/m_facturas.php';
 
     <?php
 
-    include_once '../../coneccion/db.php';
+    include_once '../../../coneccion/db.php';
 
     $coneccionBD = BD::crear_instancia();
 
@@ -207,6 +207,6 @@ include '../../modelos/m_facturas.php';
 
 
 <?php
-include '../estructura_principal/pie.php';
+include '../../estructura_principal/pie.php';
 
     ?>

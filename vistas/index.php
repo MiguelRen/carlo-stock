@@ -1,3 +1,3 @@
 <?php
 
-include './app_partes/home.php';
+include './app_partes/php_app/home.php';

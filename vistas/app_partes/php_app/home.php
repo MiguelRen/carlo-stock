@@ -1,5 +1,5 @@
 <?php
-include ('./estructura_principal/cabecera.php');
+include './estructura_principal/cabecera.php';
 
 ?>
 Sistema de getión de activos "Carlo-Stock"

@@ -1,65 +1,36 @@
-// archivo para gestionar el dinamismo de la app
+// archivo para gestionar el dinamismo del area de registro de facturas
 
 
 
-import {Extraer_elemento}  from "./extraer_elemento.js";
+//clase para extraer elementos
+import {Extraer_elemento}  from "./extraer_elemento.js"; 
+
+
+
+
 
 let extraer = new Extraer_elemento();
 console.log(extraer.elemento_por_query(".modal1"));
+
+
+
+
+
+
+
+
 
 
 // trayendo el boton  para mostar el modal
 const modal1 = document.querySelector(".modal1");
 
 
-const modal_button = document.getElementById("boton_agregar_art");
-
-modal_button.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  modal1.classList.add("modal1-show");
-
-  agregarFila();
-});
 
 
 //trayendo el boton de agregar nuevo renglon en el modal
 const ag_det_button = document.getElementById("ag_det_button");
 
-//trayendo la tabla entera del modal
-// const tabla = document.getElementById("tabla_modal");
 
-function agregarFila(e) {
-  // console.log(tabla);
-
-  // let nueva_fila = document.createElement('tr');
-
-  const fila_arreglo = [
-    "modal-descripcion",
-    "modal-unidad",
-    "modal-tipo_art",
-    "modal-cantidad",
-    "modal-precio",
-    "modal-iva",
-    "modal-neto",
-  ];
-  const fragmento = document.createDocumentFragment();
-  const tr = document.createElement("tr");
-
-  fila_arreglo.forEach((item) => {
-    const td = document.createElement("td");
-    const input = document.createElement("input");
-    input.setAttribute("id", `${item}`);
-
-    input.classList.add("w");
-    tr.appendChild(td);
-    td.appendChild(input);
-
-    fragmento.appendChild(tr);
-  });
-
-  document.getElementById("tbody_modal").appendChild(fragmento);
-}
 
 ag_det_button.addEventListener("click", (e) => {
   e.preventDefault();
