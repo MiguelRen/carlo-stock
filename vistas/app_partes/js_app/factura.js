@@ -1,18 +1,16 @@
-// archivo para gestionar el dinamismo del area de registro de facturas
 
 
+/**
+ * JS para gestionar la programacion y dinamismo de las vistas de seccion de facturas
+ */
 
-//clase para extraer elementos
-import {Extraer_elemento}  from "./extraer_elemento.js"; 
+/**
+ * importar funcion para extraer elemento
+ * @import {}
+ */
+import {Manejo_DOM_elementos} from "./dom_elements.js"; 
 
-
-
-
-
-let extraer = new Extraer_elemento();
-console.log(extraer.elemento_por_query(".modal1"));
-
-
+ 
 
 
 
@@ -20,15 +18,40 @@ console.log(extraer.elemento_por_query(".modal1"));
 
 
 
+/** extraer elemento */
+const manejo_DOM    = new Manejo_DOM_elementos();
+const boton_ag_art  = manejo_DOM.extraer_elem_por_id("form_ppal");
 
-// trayendo el boton  para mostar el modal
-const modal1 = document.querySelector(".modal1");
+console.log(boton_ag_art);
+
+/**Disparar el evento cuando se de  click en el boton agregar articulo*/
+boton_ag_art.addEventListener("click",(e =>{
+  try {
+    const modal_ag_art = manejo_DOM.extraer_elem_por_id( "section_modal" );
+    console.log(modal_ag_art);
+    manejo_DOM.agregar_css_clase(modal_ag_art,"modal1-show");
+    
+  } catch (error) {
+    console.log(error.message);
+  }
+}));
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 //trayendo el boton de agregar nuevo renglon en el modal
 const ag_det_button = document.getElementById("ag_det_button");
+console.log(ag_det_button);
 
 
 
