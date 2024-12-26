@@ -1,5 +1,3 @@
-
-
 /**
  * JS para gestionar la programacion y dinamismo de las vistas de seccion de facturas
  */
@@ -8,106 +6,71 @@
  * importar funcion para extraer elemento
  * @import {}
  */
-import {Manejo_DOM_elementos} from "./dom_elements.js"; 
+import { Manejo_DOM_elementos } from "./dom_elements.js";
 
- 
+/**
+ * importar clase para gestion de registros y datos
+ */
+import { gestion_datos } from "./datos.js";
 
-
-
-
-
-
+/**instancia de  clase gestion_datos */
+const datos = new gestion_datos();
 
 /** extraer elemento */
-const manejo_DOM    = new Manejo_DOM_elementos();
-const boton_ag_art  = manejo_DOM.extraer_elem_por_id("form_ppal");
+const manejo_DOM = new Manejo_DOM_elementos();
+const boton_ag_art = manejo_DOM.extraer_elem_por_id("boton_agregar_art");
 
 console.log(boton_ag_art);
 
 /**Disparar el evento cuando se de  click en el boton agregar articulo*/
-boton_ag_art.addEventListener("click",(e =>{
+boton_ag_art.addEventListener("click", (e) => {
   try {
-    const modal_ag_art = manejo_DOM.extraer_elem_por_id( "section_modal" );
-    console.log(modal_ag_art);
-    manejo_DOM.agregar_css_clase(modal_ag_art,"modal1-show");
-    
+    const modal_ag_art = manejo_DOM.extraer_elem_por_id("section_modal");
+
+    manejo_DOM.agregar_css_clase(modal_ag_art, "modal1-show");
+
+    manejo_DOM.agregar_fila("tbody_modal");
   } catch (error) {
     console.log(error.message);
   }
-}));
-
-
-
-
-
-
-
-
-
-
-
-
-
+});
 
 //trayendo el boton de agregar nuevo renglon en el modal
-const ag_det_button = document.getElementById("ag_det_button");
-console.log(ag_det_button);
+const ag_det_boton = manejo_DOM.extraer_elem_por_id("ag_det_button");
 
-
-
-ag_det_button.addEventListener("click", (e) => {
+/**
+ *
+ */
+ag_det_boton.addEventListener("click", (e) => {
   e.preventDefault();
 
-  agregarFila();
+  manejo_DOM.agregar_fila("tbody_modal");
+});
+
+const guardar_det_boton = manejo_DOM.extraer_elem_por_id(
+  "guar_registro_button"
+);
+
+guardar_det_boton.addEventListener("click", (e) => {
+  const elemento_modal = manejo_DOM.extraer_elem_por_id("tbody_modal");
+  const filas = Array.from(elemento_modal.getElementsByTagName("tr"));
+
+  const celdas_array = [];
+  filas.forEach((element) => {
+    const celda = Array.from(element.getElementsByTagName("input"));
+
+    for (let i = 0; i < celda.length; i++) {
+      celdas_array.push({
+        [celda[i].id]: celda[i].value,
+      });
+    }
+  });
+
+  celdas_array.push({ accion: "agregar_detalle" });
+
+  const data = JSON.stringify(celdas_array);
+
+  datos.guardar_detalle(data);
 });
 
 const form_ppal = document.getElementById("form_ppal");
-
-function guardar_detalle(e) {
-  if (e.target.id == "guar_registro_button") {
-    const tbody_modal = document.getElementById("tbody_modal");
-    const filas = Array.from(tbody_modal.getElementsByTagName("tr"));
-
-    filas.forEach((element) => {
-      const celda = Array.from(element.getElementsByTagName("input"));
-
-      const celdas_array = [];
-      for (i = 0; i < celda.length; i++) {
-        celdas_array.push({
-          [celda[i].id]: celda[i].value,
-        });
-      }
-      console.log(celdas_array);
-    });
-
-    celdas_array.push({ accion: "agregar_detalle" });
-
-    console.log(celdas_array);
-
-    const data = JSON.stringify(celdas_array);
-
-    try {
-      const opciones = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      };
-
-      fetch("../../modelos/controladora.php", opciones).then((response) => {
-        if (!response.ok) {
-          throw new Error("error en repuesta" + response.statusText);
-        }
-
-        return response.json();
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-}
-
-form_ppal.addEventListener("click", (e) => {
-  guardar_detalle(e);
-});
