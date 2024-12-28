@@ -1,12 +1,12 @@
 <?php
+/**trae la estructuta superior pricipal o cabecera de este archivo */
 include '../../estructura_principal/cabecera.php';
-include '../../../modelos/m_facturas.php';
-
 ?>
+
 
 <div class="row ">
 
-
+    <!-- Seccion del área de factura  donde se anotan los aspectos basicos de una factura.-->
     <div class="col-3">
         <div class="card border border-primary">
             <div class="card-header">
@@ -17,7 +17,9 @@ include '../../../modelos/m_facturas.php';
                 </div>
                 <div class="card-body ">
                     <h3>Añadir factura</h3>
+
                     <form action="" method="post" id="form_ppal">
+                        <!-- Formulario para guardar los datos de las facturas-->
 
                         <div class="row float">
 
@@ -96,15 +98,16 @@ include '../../../modelos/m_facturas.php';
 
 
 
-                        
-                        <div class="fs-5   btn-group ">
 
-                            <button type="submit" name="accion" value="art"
-                            class="btn btn-primary"  id="boton_agregar_art">Agregar Articulos</button>
+                        <div class="fs-5   btn-group ">
+                            <!-- Boton, no para guardar el formulario, sino para pasar al modal para  agregar los  articulos de la factura-->
+                            <button type="submit" name="accion" value="art" class="btn btn-primary"
+                                id="boton_agregar_art">Agregar Articulos</button>
                         </div>
-<?php 
-    include '../php_app/modales/articulos.php';
-?>
+                        <?php
+                        /**aquí se incluye el modal de "Detalles de factura" */
+                        include '../php_app/modales/articulos.php';
+                        ?>
 
                     </form>
                 </div>
@@ -113,31 +116,15 @@ include '../../../modelos/m_facturas.php';
     </div>
 
 
-    <?php
-
-    include_once '../../../coneccion/db.php';
-
-    $coneccionBD = BD::crear_instancia();
 
 
 
-
-           
-    $consulta = $coneccionBD->prepare("SELECT * FROM factura");
-    $consulta->execute();
-    $lista_factura = $consulta->fetchAll();
-
-
-
-    ?>
-
-
-
+    <!--    En esta seccion correspònde a la lista que sirve para mostrar las facturas ya guardadas -->
     <div class="col-9 border">
         <table class="table">
             <thead>
                 <tr id="web">
-                    <td  hidden>ID</td>
+                    <td hidden>ID</td>
                     <td class="small">Nº Factura</td>
                     <td class="small">Empresa</td>
                     <td class="small">Comprador</td>
@@ -161,7 +148,7 @@ include '../../../modelos/m_facturas.php';
 
             <tbody>
 
-
+                <!-- aqui se incrusta un codigo php para, dinamicamente, alojar los datos d e las facturas -->
                 <?php foreach ($lista_factura as $factura) { ?>
                     <tr>
                         <th hidden> <?php echo $factura["factura_id"]; ?></th>
@@ -182,12 +169,12 @@ include '../../../modelos/m_facturas.php';
                         <th class="small"> <?php echo $factura["descuento"]; ?></th>
                         <th class="small"> <?php echo $factura["recargo"]; ?></th>
                         <th class="small"> <?php echo $factura["tasa"]; ?></th>
-                      
+
 
                         <th>
                             <form action="" method="post">
-                                <input type="text" class="small" name="id_seleccion" value="<?php echo $factura["factura_id"]; ?> "
-                                    hidden>
+                                <input type="text" class="small" name="id_seleccion"
+                                    value="<?php echo $factura["factura_id"]; ?> " hidden>
 
                                 <button type="submit" name="accion" value="Seleccionar"
                                     class="btn btn-primary small">Editar</button>
@@ -207,6 +194,7 @@ include '../../../modelos/m_facturas.php';
 
 
 <?php
+/**Se incluye la el "pie" o estructura inferior base del archivo */
 include '../../estructura_principal/pie.php';
 
-    ?>
+?>

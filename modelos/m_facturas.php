@@ -5,19 +5,20 @@
 
 
 
-
+/**Se trae la coneccion de la base de datos */
+include_once '../coneccion/db.php';
 
 /** Se agrega  la ruta a la base de datos  */
 include_once $_SERVER['DOCUMENT_ROOT'] . '/carlo-stock/coneccion/db.php';
 
 
-class Facturas
+class M_facturas
 {
     /**
      * @var mixed - esta variable contiene una instancia de la conexion a BD
      */
-    private $coneccionBD = BD::crear_instancia();
-    public function __construct($tipo = null, $conneccionBD )
+    public $coneccionBD = BD::crear_instancia();
+    public function __construct($tipo = null, $conneccionBD)
     {
         $this->tipo = $tipo;
         $this->coneccionBD = $conneccionBD;
@@ -42,34 +43,55 @@ class Facturas
             $consulta->bindParam(1, $factura_bd_id);
             $consulta->execute();
             $lista_seleccion = $consulta->fetch(PDO::FETCH_ASSOC);
+
+            return $lista_seleccion;
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+    public function insertar($datos_factura)
+    {
+        try {
+            // $factura_id_seleccion = $lista_seleccion['factura_id'] ?? '';
+            // $numero_seleccion = $lista_seleccion['numero'] ?? '';
+            // $empresa_seleccion = $lista_seleccion['empresa'] ?? '';
+            // $monto_seleccion = $lista_seleccion['comprador'] ?? '';
             
-            return  $lista_seleccion;
+            
+            
+            // $monto_seleccion = $lista_seleccion['vendedor'] ?? '';
+            // $monto_seleccion = $lista_seleccion['tipo_documento'] ?? '';
+            // $monto_seleccion = $lista_seleccion['tipo_pago'] ?? '';
+            // $monto_seleccion = $lista_seleccion['condicion_pago'] ?? '';
+            
+            // $monto_seleccion = $lista_seleccion['fecha_vencimiento'] ?? '';
+            // $monto_seleccion = $lista_seleccion['fecha_emision'] ?? '';
+            // $monto_seleccion = $lista_seleccion['sub_total'] ?? '';
+            // $monto_seleccion = $lista_seleccion['iva'] ?? '';
+            // $monto_seleccion = $lista_seleccion['descuento'] ?? '';
+            
+            // $monto_seleccion = $lista_seleccion['recargo'] ?? '';
+            // $monto_seleccion = $lista_seleccion['tasa'] ?? '';
+            
+        } catch (Throwable $e) {
+
+        }
+    }
+
+    public function obtener_todas(){
+        try {
+            $coneccionBD = BD::crear_instancia();
+          
+            $consulta = $coneccionBD->prepare("SELECT * FROM factura");
+            $consulta->execute();
+            $lista_factura = $consulta->fetchAll();
+            return $lista_factura;
         } catch (\Throwable $th) {
             //throw $th;
         }
     }
 
 }
-            // $factura_id_seleccion = $lista_seleccion['factura_id'] ?? '';
-            // $numero_seleccion = $lista_seleccion['numero'] ?? '';
-            // $empresa_seleccion = $lista_seleccion['empresa'] ?? '';
-            // $monto_seleccion = $lista_seleccion['comprador'] ?? '';
-
-
-
-            // $monto_seleccion = $lista_seleccion['vendedor'] ?? '';
-            // $monto_seleccion = $lista_seleccion['tipo_documento'] ?? '';
-            // $monto_seleccion = $lista_seleccion['tipo_pago'] ?? '';
-            // $monto_seleccion = $lista_seleccion['condicion_pago'] ?? '';
-
-            // $monto_seleccion = $lista_seleccion['fecha_vencimiento'] ?? '';
-            // $monto_seleccion = $lista_seleccion['fecha_emision'] ?? '';
-            // $monto_seleccion = $lista_seleccion['sub_total'] ?? '';
-            // $monto_seleccion = $lista_seleccion['iva'] ?? '';
-            // $monto_seleccion = $lista_seleccion['descuento'] ?? '';
-
-            // $monto_seleccion = $lista_seleccion['recargo'] ?? '';
-            // $monto_seleccion = $lista_seleccion['tasa'] ?? '';
 
 
 // if (isset($_POST)) {
@@ -123,52 +145,52 @@ class Facturas
 //                 $consulta->execute();
 
 
-                // foreach ($_POST as $post_item => $value) {
-                //     if ($post_item =) {
-                //         # code...
-                //     }
+// foreach ($_POST as $post_item => $value) {
+//     if ($post_item =) {
+//         # code...
+//     }
 
 
-                // }
+// }
 
-                //agregando los articulos
-                // $descripcion = $_POST['modal-descripcion'];
-                // $tipo_unidad = $_POST['modal-unidad'];
-                // $tipo_art = $_POST['modal-tipo_art'];
+//agregando los articulos
+// $descripcion = $_POST['modal-descripcion'];
+// $tipo_unidad = $_POST['modal-unidad'];
+// $tipo_art = $_POST['modal-tipo_art'];
 
-                // $cantidad = $_POST['modal-cantidad'];
-                // $precio = $_POST['modal-precio'];
-                // $iva = $_POST['modal-iva'];
-                // $neto = $_POST['modal-neto'];
+// $cantidad = $_POST['modal-cantidad'];
+// $precio = $_POST['modal-precio'];
+// $iva = $_POST['modal-iva'];
+// $neto = $_POST['modal-neto'];
 
-                // buscando el id de la factura donde se va a  guardar la informacion 
-
-
-
-                ## imprimiendo $_POST
-
-                //consulta para ingresar los detalles
-                // $sql_detalle = "INSERT INTO detalle_factura (id_factura_fk,art_desc,tipo_unidad,tipo_art,cant,precio_unit,sub_iva,neto)
-                //             values (?,?,?,?,?,?,?,?)";
-
-
-                // $consulta_detalle = $coneccionBD->prepare($sql_detalle);
-                // $consulta_detalle->bindParam(1, $factura_id['factura_id']);
-                // $consulta_detalle->bindParam(2, $descripcion);
-                // $consulta_detalle->bindParam(3, $tipo_unidad);
-                // $consulta_detalle->bindParam(4, $tipo_art);
-                // $consulta_detalle->bindParam(5, $cantidad);
-                // $consulta_detalle->bindParam(6, $precio);
-                // $consulta_detalle->bindParam(7, $iva);
-                // $consulta_detalle->bindParam(8, $neto);
-
-                // $consulta_detalle->execute();
+// buscando el id de la factura donde se va a  guardar la informacion 
 
 
 
-            // } catch (\Throwable $th) {
-            //     print_r(throw $th);
-            // }
+## imprimiendo $_POST
+
+//consulta para ingresar los detalles
+// $sql_detalle = "INSERT INTO detalle_factura (id_factura_fk,art_desc,tipo_unidad,tipo_art,cant,precio_unit,sub_iva,neto)
+//             values (?,?,?,?,?,?,?,?)";
+
+
+// $consulta_detalle = $coneccionBD->prepare($sql_detalle);
+// $consulta_detalle->bindParam(1, $factura_id['factura_id']);
+// $consulta_detalle->bindParam(2, $descripcion);
+// $consulta_detalle->bindParam(3, $tipo_unidad);
+// $consulta_detalle->bindParam(4, $tipo_art);
+// $consulta_detalle->bindParam(5, $cantidad);
+// $consulta_detalle->bindParam(6, $precio);
+// $consulta_detalle->bindParam(7, $iva);
+// $consulta_detalle->bindParam(8, $neto);
+
+// $consulta_detalle->execute();
+
+
+
+// } catch (\Throwable $th) {
+//     print_r(throw $th);
+// }
 
 
 //             break;

@@ -9,18 +9,23 @@
 import { Manejo_DOM_elementos } from "./dom_elements.js";
 
 /**
- * importar clase para gestion de registros y datos
+ * @import - Traer la clase contiene la funcion que pide todas las facturas
  */
-import { gestion_datos } from "./datos.js";
+import {Gestion_datos} from "./datos.js";
+
 
 /**instancia de  clase gestion_datos */
-const datos = new gestion_datos();
+const datos = new Gestion_datos();
 
-/** extraer elemento */
+/** Llamado al controlador para traer la lista de las facturas */
+document.addEventListener('DOMContentLoaded',datos.traer_todas_facturas());
+
+
+/** Instancia para extraer elemento */
 const manejo_DOM = new Manejo_DOM_elementos();
 const boton_ag_art = manejo_DOM.extraer_elem_por_id("boton_agregar_art");
 
-console.log(boton_ag_art);
+
 
 /**Disparar el evento cuando se de  click en el boton agregar articulo*/
 boton_ag_art.addEventListener("click", (e) => {
