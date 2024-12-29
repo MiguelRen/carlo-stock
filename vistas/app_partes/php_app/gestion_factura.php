@@ -146,45 +146,65 @@ include '../../estructura_principal/cabecera.php';
 
             </thead>
 
-            <tbody>
+            <tbody id="tbody_id">
 
+
+
+
+
+                <!-- 
                 <!-- aqui se incrusta un codigo php para, dinamicamente, alojar los datos d e las facturas -->
-                <?php foreach ($lista_factura as $factura) { ?>
-                    <tr>
-                        <th hidden> <?php echo $factura["factura_id"]; ?></th>
-                        <th class="small"> <?php echo $factura["numero"]; ?></th>
-                        <th class="small"> <?php echo $factura["empresa"]; ?></th>
-                        <th class="small"> <?php echo $factura["comprador"]; ?></th>
+                <?php
+                /**Verificar si faturas en el arreglo de $lista_factura*/
+                if (strlen(isset($lista_factura)) < 1) {
+                    /** Si NO hay info en el arreglo */
+                    echo "<strong>No hay facturas por los momentos</strong>";
+                } else {
+                    /**Si es que hay  */
 
-                        <th class="small"> <?php echo $factura["vendedor"]; ?></th>
-                        <th class="small"> <?php echo $factura["tipo_documento"]; ?></th>
-                        <th class="small"> <?php echo $factura["tipo_pago"]; ?></th>
-                        <th class="small"> <?php echo $factura["condicion_pago"]; ?></th>
+                    /**ForEach para hacer maping a cada elemento y mostrar */
+                    foreach ($lista_factura as $factura) { ?>
+                        <tr>
+                            <th hidden> <?php echo $factura["factura_id"]; ?></th>
+                            <th class="small"> <?php echo $factura["numero"]; ?></th>
+                            <th class="small"> <?php echo $factura["empresa"]; ?></th>
+                            <th class="small"> <?php echo $factura["comprador"]; ?></th>
 
-                        <th class="small"> <?php echo $factura["fecha_vencimiento"]; ?></th>
-                        <th class="small"> <?php echo $factura["fecha_emision"]; ?></th>
-                        <th class="small"> <?php echo $factura["sub_total"]; ?></th>
-                        <th class="small"> <?php echo $factura["iva"]; ?></th>
+                            <th class="small"> <?php echo $factura["vendedor"]; ?></th>
+                            <th class="small"> <?php echo $factura["tipo_documento"]; ?></th>
+                            <th class="small"> <?php echo $factura["tipo_pago"]; ?></th>
+                            <th class="small"> <?php echo $factura["condicion_pago"]; ?></th>
 
-                        <th class="small"> <?php echo $factura["descuento"]; ?></th>
-                        <th class="small"> <?php echo $factura["recargo"]; ?></th>
-                        <th class="small"> <?php echo $factura["tasa"]; ?></th>
+                            <th class="small"> <?php echo $factura["fecha_vencimiento"]; ?></th>
+                            <th class="small"> <?php echo $factura["fecha_emision"]; ?></th>
+                            <th class="small"> <?php echo $factura["sub_total"]; ?></th>
+                            <th class="small"> <?php echo $factura["iva"]; ?></th>
+
+                            <th class="small"> <?php echo $factura["descuento"]; ?></th>
+                            <th class="small"> <?php echo $factura["recargo"]; ?></th>
+                            <th class="small"> <?php echo $factura["tasa"]; ?></th>
 
 
-                        <th>
-                            <form action="" method="post">
-                                <input type="text" class="small" name="id_seleccion"
-                                    value="<?php echo $factura["factura_id"]; ?> " hidden>
+                            <th>
+                                <form action="" method="post">
+                                    <input type="text" class="small" name="id_seleccion"
+                                        value="<?php echo $factura["factura_id"]; ?> " hidden>
 
-                                <button type="submit" name="accion" value="Seleccionar"
-                                    class="btn btn-primary small">Editar</button>
-                                <button class="btn btn-danger small" name="accion" value="Eliminar">Eliminar</button>
-                            </form>
-                        </th>
+                                    <button type="submit" name="accion" value="Seleccionar"
+                                        class="btn btn-primary small">Editar</button>
+                                    <button class="btn btn-danger small" name="accion" value="Eliminar">Eliminar</button>
+                                </form>
+                            </th>
 
-                    </tr>
+                        </tr>
 
-                <?php } ?>
+                    <?php }
+                } ?> -->
+
+
+
+
+
             </tbody>
         </table>
 

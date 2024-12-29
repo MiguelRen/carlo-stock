@@ -6,7 +6,7 @@
  * importar funcion para extraer elemento
  * @import {}
  */
-import { Manejo_DOM_elementos } from "./dom_elements.js";
+import { Manejo_DOM_elementos,Creacion_elementos } from "./dom_elements.js";
 
 /**
  * @import - Traer la clase contiene la funcion que pide todas las facturas
@@ -14,12 +14,25 @@ import { Manejo_DOM_elementos } from "./dom_elements.js";
 import {Gestion_datos} from "./datos.js";
 
 
-/**instancia de  clase gestion_datos */
-const datos = new Gestion_datos();
 
-/** Llamado al controlador para traer la lista de las facturas */
-document.addEventListener('DOMContentLoaded',datos.traer_todas_facturas());
-
+/** Trae la informacion al cargar la página y crea la lista*/
+document.addEventListener('DOMContentLoaded', () => {
+  try{
+    /**instancia de  clase gestion_datos */
+    const datos = new Gestion_datos();
+    const inst_cre_elem = new Creacion_elementos();
+    
+    const lista_facturas = datos.traer_todas_facturas();
+    
+    inst_cre_elem.desplegar_lista_tabla(lista_facturas,"tbody");
+    
+    
+    
+  }catch(error){
+  throw new Error("Problemas" + error);
+}
+}
+);
 
 /** Instancia para extraer elemento */
 const manejo_DOM = new Manejo_DOM_elementos();

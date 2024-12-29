@@ -71,12 +71,43 @@ export class Manejo_DOM_elementos {
 
     }
   }
+}
 
-
-
-  agregar_fila(element_id) {
+export class Creacion_elementos {
+  
+  desplegar_lista_tabla(lista_fact_guardadas,id_tbody){
     try {
+      
+      /**Posterirormente, por favor colocar a qui un validador, para certificar que el elemento es un tbody de una tabla */
+      const instancia_manejo_DOM = new Manejo_DOM_elementos;
+      const tbody = instancia_manejo_DOM.extraer_elem_por_id(id_tbody); 
+      const fragmento = document.createDocumentFragment();
+      const tr = document.createElement("tr");
 
+      lista_fact_guardadas.forEach(list_item =>{
+        
+        const td = document.createElement("td");
+        
+        td.textContent = list_item; 
+        tr.appendChild(td);
+
+        fragmento.appendChild(tr);
+
+      });
+      
+      tbody.appendChild(fragmento);
+      
+    } catch (error) {
+      throw new Error("Problemas " + error );
+      
+    }
+  }
+  
+  
+  
+  agregar_fila(element_id){
+    try {
+  
       const fila_arreglo = [
         "modal-descripcion",
         "modal-unidad",
@@ -86,29 +117,34 @@ export class Manejo_DOM_elementos {
         "modal-iva",
         "modal-neto",
       ];
-
+  
       const fragmento = document.createDocumentFragment();
       const tr = document.createElement("tr");
-
+  
       fila_arreglo.forEach((item) => {
         const td = document.createElement("td");
         const input = document.createElement("input");
         input.setAttribute("id", `${item}`);
-
+  
         input.classList.add("w");
         tr.appendChild(td);
         td.appendChild(input);
-
+  
         fragmento.appendChild(tr);
       });
-
+  
       this.extraer_elem_por_id(element_id).appendChild(fragmento);
-
-    } catch (error) {
-
+  
+    }catch (error) {
+  
       throw new Custom_Error;
     }
-
-
+  
+  
   }
 }
+
+
+
+
+

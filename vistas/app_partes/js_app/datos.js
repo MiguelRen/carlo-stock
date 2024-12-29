@@ -4,14 +4,13 @@
  * Clase que gestiona los procesos relacionados con los datos
  */
 export class Gestion_datos {
-
-  constructor(){
+  constructor() {
     this.dir_control = "../../../controladores/c_facturas.php";
   }
 
   /**
-   * @param {NULL} - No recibe paràmetros
-   * @returns {Array} - Un arreglo con los valores de las facturas
+   * @param null- No recibe paràmetros
+   * @returns {Promise<Array>} - Un arreglo con los valores de las facturas
    */
   traer_todas_facturas() {
     try {
@@ -25,27 +24,28 @@ export class Gestion_datos {
         },
       };
       /**
-       *@param {url} -  Direccion del controlador a quien se va a pedir la información
+       *@param {string} - url de Direccion del controlador a quien se va a pedir la información
        *@param {Array} - Las opciones que se van a enviar junto con la peticion "metodo, header,body ..."
        *@throws {Error} - si la peticion es fallida
        *@returns {Promise<Object>} - promesa que se resuelve con las datos optenidos desde el controlador
        */
       fetch(this.dir_control, opciones)
         .then((response) => {
-          if (!response.ok) {
-            throw new Error("error en repuesta" + response.statusText);
-          } else {
-            console.log(response);
-          }
-        })
-        .then((response) => {
-          console.log(response);
-          
-          return response;
-        });
-    } catch (error) {}
-  }
 
+         const result = response.json();
+          console.log(result.Array);
+          
+            return response.json();
+          
+        })
+        .catch((error) => {
+          throw new Error("Problemas" + error);
+          ;
+        });
+    } catch (error) {
+      throw new Error("Problemas  => " + error);
+    }
+  }
 
   guardar_detalle(data) {
     try {
@@ -56,7 +56,7 @@ export class Gestion_datos {
         },
         body: JSON.stringify(data),
       };
-      console.log(body);
+      console.log(data);
 
       fetch("../../../modelos/m_facturas.php", opciones).then((response) => {
         if (!response.ok) {

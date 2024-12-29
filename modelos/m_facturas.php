@@ -8,8 +8,8 @@
 /**Se trae la coneccion de la base de datos */
 include_once '../coneccion/db.php';
 
-/** Se agrega  la ruta a la base de datos  */
-include_once $_SERVER['DOCUMENT_ROOT'] . '/carlo-stock/coneccion/db.php';
+// /** Se agrega  la ruta a la base de datos  */
+// include_once $_SERVER['DOCUMENT_ROOT'] . '/carlo-stock/coneccion/db.php';
 
 
 class M_facturas
@@ -17,11 +17,11 @@ class M_facturas
     /**
      * @var mixed - esta variable contiene una instancia de la conexion a BD
      */
-    public $coneccionBD = BD::crear_instancia();
-    public function __construct($tipo = null, $conneccionBD)
+    public function __construct($tipo = null)
     {
+       
         $this->tipo = $tipo;
-        $this->coneccionBD = $conneccionBD;
+   
     }
     /**
      * Summary of obtener
@@ -38,15 +38,15 @@ class M_facturas
 
             /** variable principal que contiene el valor identificativo de las facturas */
             $factura_bd_id = $datos_factura['id_seleccion'];
-
-            $consulta = $this->coneccionBD->prepare($sql);
+            $coneccion = BD::crear_instancia();
+            $consulta = $coneccion->prepare($sql);
             $consulta->bindParam(1, $factura_bd_id);
             $consulta->execute();
             $lista_seleccion = $consulta->fetch(PDO::FETCH_ASSOC);
 
             return $lista_seleccion;
         } catch (\Throwable $th) {
-            //throw $th;
+            throw $th;
         }
     }
     public function insertar($datos_factura)
