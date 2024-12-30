@@ -6,39 +6,37 @@
  * importar funcion para extraer elemento
  * @import {}
  */
-import { Manejo_DOM_elementos,Creacion_elementos } from "./dom_elements.js";
+import { Manejo_DOM_elementos, Creacion_elementos } from "./dom_elements.js";
 
 /**
  * @import - Traer la clase contiene la funcion que pide todas las facturas
  */
-import {Gestion_datos} from "./datos.js";
-
-
+import { Gestion_datos } from "./datos.js";
 
 /** Trae la informacion al cargar la página y crea la lista*/
-document.addEventListener('DOMContentLoaded', () => {
-  try{
+document.addEventListener("DOMContentLoaded", () => {
+  try {
     /**instancia de  clase gestion_datos */
     const datos = new Gestion_datos();
     const inst_cre_elem = new Creacion_elementos();
-    
-    const lista_facturas = datos.traer_todas_facturas();
-    
-    inst_cre_elem.desplegar_lista_tabla(lista_facturas,"tbody");
-    
-    
-    
-  }catch(error){
-  throw new Error("Problemas" + error);
-}
-}
-);
+
+    datos
+      .traer_todas_facturas()
+      .then((response) => {
+        return inst_cre_elem.desplegar_lista_tabla(response, "tbody_id");
+      })
+
+      .catch((error) => {
+        console.log(error);
+      });
+  } catch (error) {
+    throw new Error("Problemas " + error);
+  }
+});
 
 /** Instancia para extraer elemento */
 const manejo_DOM = new Manejo_DOM_elementos();
 const boton_ag_art = manejo_DOM.extraer_elem_por_id("boton_agregar_art");
-
-
 
 /**Disparar el evento cuando se de  click en el boton agregar articulo*/
 boton_ag_art.addEventListener("click", (e) => {

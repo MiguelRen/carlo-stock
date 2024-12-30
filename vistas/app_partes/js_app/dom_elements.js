@@ -50,7 +50,7 @@ export class Manejo_DOM_elementos {
   }
 
   /**
-   * 
+   *
    * @param {HTMLCollection} dom_elem -elemento que fue extraido del DOM
    * @param {string} clase - Clase que será insertada en el elemento extraido
    */
@@ -63,51 +63,69 @@ export class Manejo_DOM_elementos {
       if (dom_elem instanceof Object) {
         dom_elem.classList.add(clase);
       } else {
-        console.log("valor enviado a agregar_csss_clase no es un elemento HTMLCollection válido");
+        console.log(
+          "valor enviado a agregar_csss_clase no es un elemento HTMLCollection válido"
+        );
       }
-
     } catch (error) {
       console.log(error.message);
-
     }
   }
 }
 
+/**
+ * @class - que permite la creacion de elementos en el DOM
+ */
 export class Creacion_elementos {
-  
-  desplegar_lista_tabla(lista_fact_guardadas,id_tbody){
+  /**
+   *
+   * @param {Array} lista_fact_guardadas - lista con las facturas en BD
+   * @param {String} id_tbody - Se trata del nombre del elemento donde se insertará los nuevos elementos
+   */
+  desplegar_lista_tabla(lista_fact_guardadas, id_tbody) {
     try {
-      
-      /**Posterirormente, por favor colocar a qui un validador, para certificar que el elemento es un tbody de una tabla */
-      const instancia_manejo_DOM = new Manejo_DOM_elementos;
-      const tbody = instancia_manejo_DOM.extraer_elem_por_id(id_tbody); 
-      const fragmento = document.createDocumentFragment();
-      const tr = document.createElement("tr");
+      if (lista_fact_guardadas === null) {
+        throw new Error("Data Problems");
+      } else {
+        /**Posterirormente, por favor colocar a qui un validador, para certificar que el elemento es un tbody de una tabla */
+        const instancia_manejo_DOM = new Manejo_DOM_elementos();
+        const tbody = instancia_manejo_DOM.extraer_elem_por_id(id_tbody);
+        const fragmento = document.createDocumentFragment();
+        const tr = document.createElement("tr");
+        console.log(lista_fact_guardadas);
 
-      lista_fact_guardadas.forEach(list_item =>{
-        
-        const td = document.createElement("td");
-        
-        td.textContent = list_item; 
-        tr.appendChild(td);
+        lista_fact_guardadas.forEach((list_item) => {
+          
+          Object.entries(list_item).forEach(value , key =>{
+            
+                      td.textContent = list_item;
+                      tr.appendChild(td);
+       //aqui!!!
+          })
+          
+            
+          })
+          
+            
+          const td = document.createElement("td");
 
-        fragmento.appendChild(tr);
+          fragmento.appendChild(tr);
+        };
 
-      });
-      
-      tbody.appendChild(fragmento);
+        tbody.appendChild(fragmento);
       
     } catch (error) {
-      throw new Error("Problemas " + error );
-      
+      throw new Error("Problemas " + error);
     }
   }
-  
-  
-  
-  agregar_fila(element_id){
+  s;
+
+  /**
+   *
+   * @param {String} element_id - nombre del tr donde se pretende insertar la  fila
+   */
+  agregar_fila(element_id) {
     try {
-  
       const fila_arreglo = [
         "modal-descripcion",
         "modal-unidad",
@@ -117,34 +135,25 @@ export class Creacion_elementos {
         "modal-iva",
         "modal-neto",
       ];
-  
+
       const fragmento = document.createDocumentFragment();
       const tr = document.createElement("tr");
-  
+
       fila_arreglo.forEach((item) => {
         const td = document.createElement("td");
         const input = document.createElement("input");
         input.setAttribute("id", `${item}`);
-  
+
         input.classList.add("w");
         tr.appendChild(td);
         td.appendChild(input);
-  
+
         fragmento.appendChild(tr);
       });
-  
+
       this.extraer_elem_por_id(element_id).appendChild(fragmento);
-  
-    }catch (error) {
-  
-      throw new Custom_Error;
+    } catch (error) {
+      throw new Custom_Error();
     }
-  
-  
   }
 }
-
-
-
-
-
