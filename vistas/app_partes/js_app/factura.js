@@ -22,12 +22,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     datos
       .traer_todas_facturas()
-      .then((response) => {
-        return inst_cre_elem.desplegar_lista_tabla(response, "tbody_id");
+      .then((data) => {
+        return inst_cre_elem.desplegar_lista_tabla(data, "tbody_id");
       })
-
       .catch((error) => {
-        console.log(error);
+        throw new Error("problemas con " + error);
       });
   } catch (error) {
     throw new Error("Problemas " + error);
@@ -38,6 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
 const manejo_DOM = new Manejo_DOM_elementos();
 const boton_ag_art = manejo_DOM.extraer_elem_por_id("boton_agregar_art");
 
+/**La instancia para crear elementos en el dom */
+const crea_elementos = new Creacion_elementos();
+
 /**Disparar el evento cuando se de  click en el boton agregar articulo*/
 boton_ag_art.addEventListener("click", (e) => {
   try {
@@ -45,7 +47,7 @@ boton_ag_art.addEventListener("click", (e) => {
 
     manejo_DOM.agregar_css_clase(modal_ag_art, "modal1-show");
 
-    manejo_DOM.agregar_fila("tbody_modal");
+    crea_elementos.agregar_fila_en_tablas("tbody_modal");
   } catch (error) {
     console.log(error.message);
   }
@@ -59,8 +61,9 @@ const ag_det_boton = manejo_DOM.extraer_elem_por_id("ag_det_button");
  */
 ag_det_boton.addEventListener("click", (e) => {
   e.preventDefault();
-
-  manejo_DOM.agregar_fila("tbody_modal");
+  
+  const crea_elementos = new Creacion_elementos();
+  crea_elementos.agregar_fila_en_tablas("tbody_modal");
 });
 
 const guardar_det_boton = manejo_DOM.extraer_elem_por_id(

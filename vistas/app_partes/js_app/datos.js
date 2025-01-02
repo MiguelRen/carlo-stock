@@ -35,10 +35,10 @@ export class Gestion_datos {
         }
         return response.json();
       })
-      .then((data) => {
-        console.log(data);
-        return data;
-      })
+      // .then((data) => {
+       
+      //   return data;
+      // })
       .catch((error) => {
         console.log(error);
 
@@ -55,7 +55,7 @@ export class Gestion_datos {
         },
         body: JSON.stringify(data),
       };
-      console.log(data);
+      
 
       fetch("../../../modelos/m_facturas.php", opciones).then((response) => {
         if (!response.ok) {

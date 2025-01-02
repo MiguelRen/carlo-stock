@@ -6,20 +6,6 @@ import { Custom_Error } from "./error_handler/errors.js";
  * @class
  */
 export class Manejo_DOM_elementos {
-  /**
-   *  El parametro para indicar cuales  son los modales  que pueden ser mostrados
-   * @param
-   */
-  fragmento = ["factura", "inventario"];
-
-  /**
-   * @param {string} app_parte  - Indica el tag o elemento que se quiere mostrar
-   * @param {string} fragmento  - Indica el arreglo de etiquetas validas a ser mostradas
-   */
-  constructor(app_parte, fragmento) {
-    this.parte = app_parte;
-    this.fragmento = fragmento;
-  }
 
   /**
    * extrae los elementos necesarios del archivo de donde fueron llamados
@@ -91,40 +77,33 @@ export class Creacion_elementos {
         const instancia_manejo_DOM = new Manejo_DOM_elementos();
         const tbody = instancia_manejo_DOM.extraer_elem_por_id(id_tbody);
         const fragmento = document.createDocumentFragment();
-        const tr = document.createElement("tr");
-        console.log(lista_fact_guardadas);
 
         lista_fact_guardadas.forEach((list_item) => {
-          
-          Object.entries(list_item).forEach(value , key =>{
-            
-                      td.textContent = list_item;
-                      tr.appendChild(td);
-       //aqui!!!
-          })
-          
-            
-          })
-          
-            
-          const td = document.createElement("td");
+          const tr = document.createElement("tr");
 
+          Object.keys(list_item).forEach((key) => {
+            const value = list_item[key];
+
+            const td = document.createElement("td");
+            td.textContent = value;
+
+            tr.appendChild(td);
+          });
           fragmento.appendChild(tr);
-        };
+        });
 
         tbody.appendChild(fragmento);
-      
+      }
     } catch (error) {
       throw new Error("Problemas " + error);
     }
   }
-  s;
 
   /**
    *
    * @param {String} element_id - nombre del tr donde se pretende insertar la  fila
    */
-  agregar_fila(element_id) {
+  agregar_fila_en_tablas(element_id) {
     try {
       const fila_arreglo = [
         "modal-descripcion",
@@ -135,6 +114,7 @@ export class Creacion_elementos {
         "modal-iva",
         "modal-neto",
       ];
+console.log("inside the try");
 
       const fragmento = document.createDocumentFragment();
       const tr = document.createElement("tr");
@@ -150,8 +130,9 @@ export class Creacion_elementos {
 
         fragmento.appendChild(tr);
       });
+const manejo_DOM = new Manejo_DOM_elementos();
 
-      this.extraer_elem_por_id(element_id).appendChild(fragmento);
+      manejo_DOM.extraer_elem_por_id(element_id).appendChild(fragmento);
     } catch (error) {
       throw new Custom_Error();
     }

@@ -84,7 +84,8 @@ class M_facturas
           
             $consulta = $coneccionBD->prepare("SELECT * FROM factura");
             $consulta->execute();
-            $lista_factura = $consulta->fetchAll();
+            $lista_factura = $consulta->fetchAll(PDO::FETCH_ASSOC);
+    
             return $lista_factura;
         } catch (\Throwable $th) {
             //throw $th;

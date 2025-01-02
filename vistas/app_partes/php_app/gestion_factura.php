@@ -124,7 +124,7 @@ include '../../estructura_principal/cabecera.php';
         <table class="table">
             <thead>
                 <tr id="web">
-                    <td hidden>ID</td>
+                    <td     >ID</td>
                     <td class="small">Nº Factura</td>
                     <td class="small">Empresa</td>
                     <td class="small">Comprador</td>
