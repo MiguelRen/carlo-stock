@@ -114,7 +114,6 @@ export class Creacion_elementos {
         "modal-iva",
         "modal-neto",
       ];
-console.log("inside the try");
 
       const fragmento = document.createDocumentFragment();
       const tr = document.createElement("tr");

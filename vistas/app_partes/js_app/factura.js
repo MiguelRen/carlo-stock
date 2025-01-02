@@ -61,7 +61,7 @@ const ag_det_boton = manejo_DOM.extraer_elem_por_id("ag_det_button");
  */
 ag_det_boton.addEventListener("click", (e) => {
   e.preventDefault();
-  
+
   const crea_elementos = new Creacion_elementos();
   crea_elementos.agregar_fila_en_tablas("tbody_modal");
 });
@@ -72,24 +72,23 @@ const guardar_det_boton = manejo_DOM.extraer_elem_por_id(
 
 guardar_det_boton.addEventListener("click", (e) => {
   const elemento_modal = manejo_DOM.extraer_elem_por_id("tbody_modal");
-  const filas = Array.from(elemento_modal.getElementsByTagName("tr"));
 
   const celdas_array = [];
+  const filas = Array.from(elemento_modal.getElementsByTagName("tr"));
+//this operation must be fixed
   filas.forEach((element) => {
-    const celda = Array.from(element.getElementsByTagName("input"));
-
-    for (let i = 0; i < celda.length; i++) {
-      celdas_array.push({
-        [celda[i].id]: celda[i].value,
-      });
-    }
+    const input = Array.from(element.getElementsByTagName("input"));
+    const valores_input = input.map((celda) => {
+      const value = celda.querySelector("input");
+      celdas_array.push(valores_input);
+      console.log(celdas_array);
+      return value ? value.value : null;
+    });
   });
 
   celdas_array.push({ accion: "agregar_detalle" });
 
   const data = JSON.stringify(celdas_array);
 
-  datos.guardar_detalle(data);
+  // datos.guardar_detalle(data);
 });
-
-const form_ppal = document.getElementById("form_ppal");

@@ -28,22 +28,24 @@ export class Gestion_datos {
      *@throws {Error} - si la peticion es fallida
      *@returns {Promise<Object>} - promesa que se resuelve con las datos optenidos desde el controlador
      */
-    return fetch(this.dir_control, opciones)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error en respueta: " + response.statusText);
-        }
-        return response.json();
-      })
-      // .then((data) => {
-       
-      //   return data;
-      // })
-      .catch((error) => {
-        console.log(error);
+    return (
+      fetch(this.dir_control, opciones)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Error en respueta: " + response.statusText);
+          }
+          return response.json();
+        })
+        // .then((data) => {
 
-        throw new Error("Problemas" + error);
-      });
+        //   return data;
+        // })
+        .catch((error) => {
+          console.log(error);
+
+          throw new Error("Problemas" + error);
+        })
+    );
   }
 
   guardar_detalle(data) {
@@ -55,17 +57,23 @@ export class Gestion_datos {
         },
         body: JSON.stringify(data),
       };
-      
 
-      fetch("../../../modelos/m_facturas.php", opciones).then((response) => {
-        if (!response.ok) {
-          throw new Error("error en repuesta" + response.statusText);
-        } else {
-          console.log(response);
-        }
+      return fetch(this.dir_control, opciones)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("error en repuesta" + response.statusText);
+          } else {
+            console.log(response);
+          }
 
-        return response.json();
-      });
+          return response.json();
+        })
+        .then((data) => {
+          return data;
+        })
+        .catch((error) => {
+          throw new Error("Server Error" + error);
+        });
     } catch (error) {
       console.log(error);
     }
