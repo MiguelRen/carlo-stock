@@ -3,6 +3,7 @@
 /**
  * Clase que gestiona los procesos relacionados con los datos
  */
+
 export class Gestion_datos {
   constructor() {
     this.dir_control = "../../../controladores/c_facturas.php";
@@ -28,24 +29,43 @@ export class Gestion_datos {
      *@throws {Error} - si la peticion es fallida
      *@returns {Promise<Object>} - promesa que se resuelve con las datos optenidos desde el controlador
      */
-    return (
-      fetch(this.dir_control, opciones)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Error en respueta: " + response.statusText);
-          }
-          return response.json();
-        })
-        // .then((data) => {
+    return fetch(this.dir_control, opciones)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error en respueta: " + response.statusText);
+        }
+        return response.json();
+      })
+      .catch((error) => {
+        console.log(error);
 
-        //   return data;
-        // })
-        .catch((error) => {
-          console.log(error);
+        throw new Error("Problemas" + error);
+      });
+  }
 
-          throw new Error("Problemas" + error);
-        })
-    );
+  guardar_fatura(factura_detalles_array) {
+    try {
+      const data = factura_detalles_array;
+      const opciones = {
+        method: "POST",
+        headers: {
+          "Content-Type": " application/json",
+        },
+      };
+      if (data) {
+        fetch(this.dir_control, opciones)
+          .then((response) => {
+            return response.json();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        throw new Error("Information detail Array needed");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   guardar_detalle(data) {

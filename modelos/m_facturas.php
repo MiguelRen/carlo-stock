@@ -108,20 +108,6 @@ class M_facturas
 
 
 
-//                 $numero_factura = $_POST['numero_factura_input'] ?? '';
-//                 $empresa = $_POST['empresa_input'] ?? '';
-//                 $comprador = $_POST['comprador_input'] ?? '';
-//                 $vendedor = $_POST['vendedor_input'] ?? '';
-//                 $tipo_documento = $_POST['tipo_documento_input'] ?? '';
-//                 $tipo_pago = $_POST['tipo_pago_input'] ?? '';
-//                 $condicion_pago = $_POST['condicion_pago_input'] ?? '';
-//                 $fecha_emision = $_POST['fecha_emision_input'] ?? '';
-//                 $fecha_vencimiento = $_POST['fecha_vencimiento_input'] ?? '';
-//                 $sub_total = $_POST['sub_total_input'] ?? '';
-//                 $iva = $_POST['iva_input'] ?? '';
-//                 $descuento = $_POST['descuento_input'] ?? '';
-//                 $recargo = $_POST['recargo_input'] ?? '';
-//                 $tasa = $_POST['tasa_input'] ?? '';
 
 //                 $sql = "INSERT INTO factura (numero,empresa,comprador,vendedor,tipo_documento,tipo_pago,condicion_pago,
 //                 fecha_vencimiento,fecha_emision,sub_total,iva,descuento,recargo,tasa) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
