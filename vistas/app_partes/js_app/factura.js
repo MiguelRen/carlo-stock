@@ -146,7 +146,7 @@ function guardar_factura_general(factura_datos_array) {
     /**If que comprueba si ha llegado un arreglo o no */
     if (data instanceof Array) {
       const factura_nueva = new Gestion_datos();
-      const result = factura_nueva.guardar_fatura(data);
+      const result = factura_nueva.guardar_factura(data);
       return result;
     } else {
       throw new Error("Array type required", error.message);

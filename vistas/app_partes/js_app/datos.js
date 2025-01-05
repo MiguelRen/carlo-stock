@@ -43,19 +43,26 @@ export class Gestion_datos {
       });
   }
 
-  guardar_fatura(factura_detalles_array) {
+  guardar_factura(factura_detalles_array) {
     try {
-      const data = factura_detalles_array;
+      const data_json = JSON.stringify(factura_detalles_array);
+      console.log(data_json);
+
       const opciones = {
         method: "POST",
         headers: {
-          "Content-Type": " application/json",
+          "Content-Type": "application/json",
         },
+        body: data_json,
       };
-      if (data) {
+      if (data_json) {
         fetch(this.dir_control, opciones)
           .then((response) => {
-            return response.json();
+            if (!response.ok) {
+              throw new Error(`Connection Problems. Status:${response.status}`);
+            } else {
+              return response.json();
+            }
           })
           .catch((error) => {
             console.log(error);

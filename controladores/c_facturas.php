@@ -28,6 +28,21 @@ class C_facturas
         }
     }
 
+    public function agregar_factura($data){
+       try {
+        if (isset($data)) {
+            // $inst_M_factura = new M_facturas();
+            // $result = $inst_M_factura ->insertar_factura($data);
+            // return $result;
+            print_r($data);
+        }else{
+            throw new Exception("Model Query Error", 1);
+        }
+       } catch (\Throwable $th) {
+        print_r($th);
+       }
+    }
+
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -35,4 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
  
  echo json_encode($datos->todas_facturas());
 //   return json_encode($datos->todas_facturas());;
+}elseif ($_SERVER['REQUEST_METHOD' === 'POST']) {
+    $inst_C_facturas = new C_facturas;
+    echo $_SESSION;
+    print_r($inst_C_facturas -> agregar_factura($_SESSION));
 }
