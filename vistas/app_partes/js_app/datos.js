@@ -45,31 +45,53 @@ export class Gestion_datos {
 
   guardar_factura(factura_detalles_array) {
     try {
-      const data_json = JSON.stringify(factura_detalles_array);
-      console.log(data_json);
 
-      const opciones = {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: data_json,
-      };
-      if (data_json) {
-        fetch(this.dir_control, opciones)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error(`Connection Problems. Status:${response.status}`);
-            } else {
-              return response.json();
-            }
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        throw new Error("Information detail Array needed");
+
+      if (!factura_detalles_array || factura_detalles_array.length === 0) {
+        throw new Error("Principal variable is empty");
+        
       }
+
+      function array_to_json(array){
+        return array.map(item =>{
+          return {[item[0]]:item[1]};
+        })
+      }
+        console.log(factura_detalles_array);
+        const transforma_array = array_to_json(factura_detalles_array);
+
+
+        const data_json = JSON.stringify(transforma_array);
+        
+  
+        const opciones = {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: data_json,
+        };
+        if (data_json) {
+          fetch(this.dir_control, opciones)
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`Connection Problems. Status:${response.status}`);
+              } else {
+                return response.json();
+              }
+            })
+            .then(data =>{
+
+              
+              return data
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          throw new Error("Information detail Array needed");
+        }
+     
     } catch (error) {
       console.log(error);
     }

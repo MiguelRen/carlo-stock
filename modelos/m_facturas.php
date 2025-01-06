@@ -19,9 +19,9 @@ class M_facturas
      */
     public function __construct($tipo = null)
     {
-       
+
         $this->tipo = $tipo;
-   
+
     }
     /**
      * Summary of obtener
@@ -49,67 +49,79 @@ class M_facturas
             throw $th;
         }
     }
+
+    /**
+     * @param mixed $datos_factura - Trae los datos desde el controlador correspondiente para guardar los datos generales de una factura
+     * @return int - returna el valor del id de la factura
+     */
     public function insertar_factura($datos_factura)
     {
         try {
 
-            $factura_id_seleccion = $lista_seleccion['factura_id'] ?? '';
-            $numero_seleccion = $lista_seleccion['numero'] ?? '';
-            $empresa_seleccion = $lista_seleccion['empresa'] ?? '';
-            $monto_seleccion = $lista_seleccion['comprador'] ?? '';
-            
-            
-            
-            $monto_seleccion = $lista_seleccion['vendedor'] ?? '';
-            $monto_seleccion = $lista_seleccion['tipo_documento'] ?? '';
-            $monto_seleccion = $lista_seleccion['tipo_pago'] ?? '';
-            $monto_seleccion = $lista_seleccion['condicion_pago'] ?? '';
-            
-            $monto_seleccion = $lista_seleccion['fecha_vencimiento'] ?? '';
-            $monto_seleccion = $lista_seleccion['fecha_emision'] ?? '';
-            $monto_seleccion = $lista_seleccion['sub_total'] ?? '';
-            $monto_seleccion = $lista_seleccion['iva'] ?? '';
-            $monto_seleccion = $lista_seleccion['descuento'] ?? '';
-            
-            $monto_seleccion = $lista_seleccion['recargo'] ?? '';
-            $monto_seleccion = $lista_seleccion['tasa'] ?? '';
-            
-            
-                            $sql = "INSERT INTO factura (numero,empresa,comprador,vendedor,tipo_documento,tipo_pago,condicion_pago,
-                            fecha_vencimiento,fecha_emision,sub_total,iva,descuento,recargo,tasa) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-                            $consulta = $coneccionBD->prepare($sql);
-            
-            
-                            $consulta->bindParam(1, $numero_factura);
-                            $consulta->bindParam(2, $empresa);
-                            $consulta->bindParam(3, $comprador);
-                            $consulta->bindParam(4, $vendedor);
-                            $consulta->bindParam(5, $tipo_documento);
-                            $consulta->bindParam(6, $tipo_pago);
-                            $consulta->bindParam(7, $condicion_pago);
-                            $consulta->bindParam(8, $fecha_vencimiento);
-                            $consulta->bindParam(9, $fecha_emision);
-                            $consulta->bindParam(10, $sub_total);
-                            $consulta->bindParam(11, $iva);
-                            $consulta->bindParam(12, $descuento);
-                            $consulta->bindParam(13, $recargo);
-                            $consulta->bindParam(14, $tasa);
-            
-                            $consulta->execute();
-            return $factura_id;
-        } catch (Throwable $e) {
+            if (!$datos_factura || strlen($datos_factura) == 0) {
+                print_r($datos_factura);
+                throw new Exception("Theres´s function parameters problems", 1);
+            }
 
+            $numero_factura = $datos_factura["numero_factura_input"] ?? '';
+            print_r($numero_factura);
+            $empresa = $datos_factura["empresa_input"] ?? '';
+            $vendedor = $datos_factura['vendedor'] ?? '';
+            $tipo_documento = $datos_factura['tipo_documento'] ?? '';
+            $tipo_pago = $datos_factura['tipo_pago'] ?? '';
+            $condicion_pago = $datos_factura['condicion_pago'] ?? '';
+
+            $fecha_vencimiento = $datos_factura['fecha_vencimiento'] ?? '';
+            $fecha_emision = $datos_factura['fecha_emision'] ?? '';
+            $sub_total = $datos_factura['sub_total'] ?? '';
+            $iva = $datos_factura['iva'] ?? '';
+            $descuento = $datos_factura['descuento'] ?? '';
+
+            $recargo = $datos_factura['recargo'] ?? '';
+            $tasa = $datos_factura['tasa'] ?? '';
+
+
+
+            $sql = "INSERT INTO factura (numero,empresa,comprador,vendedor,tipo_documento,tipo_pago,condicion_pago,
+                            fecha_vencimiento,fecha_emision,sub_total,iva,descuento,recargo,tasa) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+
+
+            $coneccion = BD::crear_instancia();
+            $consulta = $coneccion->prepare($sql);
+
+
+            $consulta->bindParam(1, $numero_factura);
+            $consulta->bindParam(2, $empresa);
+            $consulta->bindParam(3, $comprador);
+            $consulta->bindParam(4, $vendedor);
+            $consulta->bindParam(5, $tipo_documento);
+            $consulta->bindParam(6, $tipo_pago);
+            $consulta->bindParam(7, $condicion_pago);
+            $consulta->bindParam(8, $fecha_vencimiento);
+            $consulta->bindParam(9, $fecha_emision);
+            $consulta->bindParam(10, $sub_total);
+            $consulta->bindParam(11, $iva);
+            $consulta->bindParam(12, $descuento);
+            $consulta->bindParam(13, $recargo);
+            $consulta->bindParam(14, $tasa);
+
+            $consulta->execute();
+            return 3;
+        } catch (Throwable $e) {
+            print_r("Insertar Factura Problems ".$e);
         }
     }
 
-    public function obtener_todas(){
+    public function obtener_todas()
+    {
         try {
             $coneccionBD = BD::crear_instancia();
-          
+
             $consulta = $coneccionBD->prepare("SELECT * FROM factura");
             $consulta->execute();
             $lista_factura = $consulta->fetchAll(PDO::FETCH_ASSOC);
-            
+
             return $lista_factura;
         } catch (\Throwable $th) {
             //throw $th;
