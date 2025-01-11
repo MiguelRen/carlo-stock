@@ -46,6 +46,7 @@ export class Gestion_datos {
   guardar_factura(factura_detalles_array) {
     try {
 
+    
 
       if (!factura_detalles_array || factura_detalles_array.length === 0) {
         throw new Error("Principal variable is empty");
@@ -57,8 +58,8 @@ export class Gestion_datos {
           return {[item[0]]:item[1]};
         })
       }
-        console.log(factura_detalles_array);
         const transforma_array = array_to_json(factura_detalles_array);
+
 
 
         const data_json = JSON.stringify(transforma_array);

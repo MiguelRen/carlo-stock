@@ -78,12 +78,13 @@ guardar_det_boton.addEventListener("click", (e) => {
   try {
     e.preventDefault();
     const form_factura_general  = manejo_DOM.extraer_elem_por_query("form");
-    console.log(form_factura_general);
+
     const inputs = form_factura_general.querySelectorAll(".form-control");
     const inputs_array = Array.from(inputs);
     const inputs_values_array = inputs_array.map(item => [ item.name , item.value, ]);
     const result = guardar_factura_general(inputs_values_array);
-    console.log(result);
+    console.log(result)
+
     
     //  inputs_values_array.forEach(value =>{
   //   console.log(value);
@@ -137,11 +138,12 @@ guardar_det_boton.addEventListener("click", (e) => {
   // datos.guardar_detalle(data);
 });
 
-function guardar_factura_general(factura_datos_array) {
+function
+guardar_factura_general(factura_datos_array) {
   try {
     const data = factura_datos_array;
-    console.log(data);
-
+    
+    
 
     /**If que comprueba si ha llegado un arreglo o no */
     if (data instanceof Array) {

@@ -58,13 +58,15 @@ class M_facturas
     {
         try {
 
-            if (!$datos_factura || strlen($datos_factura) == 0) {
-                print_r($datos_factura);
+            if (!$datos_factura || count($datos_factura) == 0) {
                 throw new Exception("Theres´s function parameters problems", 1);
             }
 
+            foreach ($datos_factura as $caracteristica => $value) {
+                print_r("{ $caracteristica   $value)");
+            }
             $numero_factura = $datos_factura["numero_factura_input"] ?? '';
-            print_r($numero_factura);
+            
             $empresa = $datos_factura["empresa_input"] ?? '';
             $vendedor = $datos_factura['vendedor'] ?? '';
             $tipo_documento = $datos_factura['tipo_documento'] ?? '';

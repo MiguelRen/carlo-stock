@@ -41,7 +41,7 @@ class C_facturas
             if (isset($data)) {
                 $inst_M_factura = new M_facturas();
                 $result = $inst_M_factura->insertar_factura($data);
-                print_r($data);
+               
                 return $result;
 
             } else {
