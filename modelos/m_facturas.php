@@ -62,31 +62,46 @@ class M_facturas
                 throw new Exception("Theres´s function parameters problems", 1);
             }
 
-            foreach ($datos_factura as $caracteristica => $value) {
-                print_r("{ $caracteristica   $value)");
+            //Inicializacion de las variables
+            $numero_factura = $empresa = $comprador = $vendedor = $tipo_documento = $tipo_pago = $condicion_pago
+                = $fecha_vencimiento = $fecha_emision = $sub_total = $iva = $descuento = $recargo = $tasa = null;
+
+            foreach ($datos_factura as $array_interno) {
+
+                foreach ($array_interno as $caracteristica => $valor) {
+
+                    $map_array = [
+
+                        "numero_factura_input" => '$numero_factura',
+                        "empresa_input" => '$empresa',
+                        "comprador_input" => '$comprador',
+                        "vendedor_input" => '$vendedor',
+                        "tipo_documento_input" => '$tipo_documento',
+                        "tipo_pago_input" => '$tipo_pago',
+                        "condicion_pago_input" => '$condicion_pago',
+                        "fecha_vencimiento_input " => '$fecha_vencimiento',
+                        "fecha_emision_input" => '$fecha_emision',
+                        "sub_total_input" => '$sub_total',
+                        "iva_input" => '$iva',
+                        "descuento_input" => '$descuento',
+                        "recargo_input" => '$recargo',
+                        "tasa_input" => '$tasa'
+                    ];
+
+                    if (array_key_exists($caracteristica, $map_array)) {
+                        print_r("$caracteristica  $valor");
+                        ${$map_array[$caracteristica] = $valor};
+                    }
+
+                }
             }
-            $numero_factura = $datos_factura["numero_factura_input"] ?? '';
-            
-            $empresa = $datos_factura["empresa_input"] ?? '';
-            $vendedor = $datos_factura['vendedor'] ?? '';
-            $tipo_documento = $datos_factura['tipo_documento'] ?? '';
-            $tipo_pago = $datos_factura['tipo_pago'] ?? '';
-            $condicion_pago = $datos_factura['condicion_pago'] ?? '';
 
-            $fecha_vencimiento = $datos_factura['fecha_vencimiento'] ?? '';
-            $fecha_emision = $datos_factura['fecha_emision'] ?? '';
-            $sub_total = $datos_factura['sub_total'] ?? '';
-            $iva = $datos_factura['iva'] ?? '';
-            $descuento = $datos_factura['descuento'] ?? '';
 
-            $recargo = $datos_factura['recargo'] ?? '';
-            $tasa = $datos_factura['tasa'] ?? '';
 
 
 
             $sql = "INSERT INTO factura (numero,empresa,comprador,vendedor,tipo_documento,tipo_pago,condicion_pago,
                             fecha_vencimiento,fecha_emision,sub_total,iva,descuento,recargo,tasa) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-
 
 
             $coneccion = BD::crear_instancia();
@@ -108,10 +123,17 @@ class M_facturas
             $consulta->bindParam(13, $recargo);
             $consulta->bindParam(14, $tasa);
 
-            $consulta->execute();
-            return 3;
+
+            if ($consulta->execute()) {
+                $factura_id = $coneccion->lastInsertId();
+                return $factura_id;
+            } else {
+                throw new Exception("Error inserting data", 1);
+
+            }
         } catch (Throwable $e) {
-            print_r("Insertar Factura Problems ".$e);
+            print_r(value: "Insertar Factura Problems. $e ");
+            return 5;
         }
     }
 
